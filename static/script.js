@@ -47,6 +47,17 @@ const answerText = document.getElementById("answer-text");
 const retrievedEmpty = document.getElementById("retrieved-empty");
 const retrievedChunksList = document.getElementById("retrieved-chunks-list");
 
+// Safe helper for rendering icons in case CDN is blocked or unavailable
+function safeCreateIcons() {
+    try {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    } catch (e) {
+        console.warn("Lucide icons failed to render:", e);
+    }
+}
+
 // Initialize Application
 document.addEventListener("DOMContentLoaded", () => {
     fetchUseCases();
@@ -77,7 +88,7 @@ function setupEventListeners() {
             toggleChunksBtn.querySelector("span").textContent = "View Chunks";
             toggleChunksBtn.querySelector("i").setAttribute("data-lucide", "layers");
         }
-        lucide.createIcons();
+        safeCreateIcons();
     });
 
     // Toggle Parameter Settings
@@ -190,7 +201,7 @@ function handleUploadedFile(file) {
         uploadSuccessState.classList.remove("hidden");
         uploadFileDetails.textContent = `${file.name} (${wordCount} words, ${customDocumentText.length} characters)`;
         
-        lucide.createIcons();
+        safeCreateIcons();
 
         // Update local chunks rendering
         generateLocalChunks();
@@ -301,8 +312,7 @@ function selectUseCase(key) {
         generateLocalChunks();
     }
     
-    // Reinitialize Icons
-    lucide.createIcons();
+    safeCreateIcons();
 }
 
 // Generate Preloaded Query Pills
