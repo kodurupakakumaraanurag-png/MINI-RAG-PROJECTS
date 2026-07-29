@@ -69,12 +69,25 @@
                         <!-- Upload File Area (Shown for custom_upload only) -->
                         <div id="upload-container" class="upload-container hidden">
                             <div class="upload-dropzone" id="upload-dropzone">
-                                <i data-lucide="upload-cloud" class="upload-icon"></i>
-                                <p class="upload-title">Drag & Drop file here</p>
-                                <p class="upload-subtitle">Only plain text (.txt) files are supported</p>
-                                <span class="or-separator">or</span>
-                                <label for="file-input" class="btn btn-secondary btn-sm">Browse Files</label>
+                                <!-- Constant hidden file input -->
                                 <input type="file" id="file-input" accept=".txt" class="hidden">
+                                
+                                <!-- Idle State Panel -->
+                                <div id="upload-idle-state" class="upload-state-content">
+                                    <i data-lucide="upload-cloud" class="upload-icon"></i>
+                                    <p class="upload-title">Drag & Drop file here</p>
+                                    <p class="upload-subtitle">Only plain text (.txt) files are supported</p>
+                                    <span class="or-separator">or</span>
+                                    <label for="file-input" class="btn btn-secondary btn-sm">Browse Files</label>
+                                </div>
+
+                                <!-- Success State Panel -->
+                                <div id="upload-success-state" class="upload-state-content hidden">
+                                    <i data-lucide="file-check" class="upload-icon" style="color: var(--success)"></i>
+                                    <p class="upload-title" style="color: var(--success)">File Loaded Successfully!</p>
+                                    <p id="upload-file-details" class="upload-subtitle">Filename details...</p>
+                                    <label for="file-input" class="btn btn-secondary btn-sm">Change File</label>
+                                </div>
                             </div>
                             <div class="custom-persona-wrapper">
                                 <label for="param-custom-persona">Define AI Persona (System Prompt)</label>

@@ -13,6 +13,9 @@ const documentDisplay = document.getElementById("document-display");
 const uploadContainer = document.getElementById("upload-container");
 const fileInput = document.getElementById("file-input");
 const uploadDropzone = document.getElementById("upload-dropzone");
+const uploadIdleState = document.getElementById("upload-idle-state");
+const uploadSuccessState = document.getElementById("upload-success-state");
+const uploadFileDetails = document.getElementById("upload-file-details");
 const paramCustomPersona = document.getElementById("param-custom-persona");
 
 const chunksDisplay = document.getElementById("chunks-display");
@@ -155,14 +158,12 @@ function handleUploadedFile(file) {
     reader.onload = (e) => {
         customDocumentText = e.target.result;
         
-        // Visual indicator in dropzone
+        // Hide idle state, show success state
         const wordCount = customDocumentText.split(/\s+/).filter(w => w.length > 0).length;
-        uploadDropzone.innerHTML = `
-            <i data-lucide="file-check" class="upload-icon" style="color: var(--success)"></i>
-            <p class="upload-title" style="color: var(--success)">File Loaded Successfully!</p>
-            <p class="upload-subtitle">${file.name} (${wordCount} words, ${customDocumentText.length} characters)</p>
-            <label for="file-input" class="btn btn-secondary btn-sm">Change File</label>
-        `;
+        uploadIdleState.classList.add("hidden");
+        uploadSuccessState.classList.remove("hidden");
+        uploadFileDetails.textContent = `${file.name} (${wordCount} words, ${customDocumentText.length} characters)`;
+        
         lucide.createIcons();
 
         // Update local chunks rendering
