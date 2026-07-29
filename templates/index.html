@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modular RAG Systems Playground</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i data-lucide="shield-check" class="logo-icon"></i>
+                <h2>Antigravity RAG</h2>
+            </div>
+            <div class="sidebar-title">USE CASES</div>
+            <nav class="use-case-nav" id="use-cases-list">
+                <!-- Loaded dynamically by JS -->
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span>System Connected</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-info">
+                    <h1 id="use-case-title">Loading Use Case...</h1>
+                    <p id="use-case-desc" class="text-secondary">Please wait while the configurations load.</p>
+                </div>
+                <div class="persona-tag" id="use-case-persona">
+                    <i data-lucide="bot" class="icon-sm"></i>
+                    <span>Persona: ...</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Left Panel: Context Document & Chunks -->
+                <section class="panel context-panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <i data-lucide="file-text" class="icon-md"></i>
+                            <h3>Source Document</h3>
+                        </div>
+                        <button id="toggle-chunks-btn" class="btn btn-secondary btn-sm">
+                            <i data-lucide="layers" class="icon-sm"></i>
+                            <span>View Chunks</span>
+                        </button>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Document Display -->
+                        <div id="document-display" class="document-display">
+                            <!-- Loaded dynamically -->
+                        </div>
+                        
+                        <!-- Chunks Container (Hidden by default, toggled by button) -->
+                        <div id="chunks-display" class="chunks-display hidden">
+                            <div class="chunks-header">
+                                <span id="chunk-count-badge" class="badge">0 Chunks</span>
+                                <p class="text-xs text-secondary">Showing word-based chunks split with sliding overlap.</p>
+                            </div>
+                            <div id="chunks-list" class="chunks-list">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right Panel: Query & Outputs -->
+                <section class="panel control-panel">
+                    <!-- Advanced Parameters (Collapsible) -->
+                    <div class="settings-section">
+                        <div class="settings-toggle" id="settings-toggle-btn">
+                            <div class="settings-title">
+                                <i data-lucide="sliders" class="icon-sm"></i>
+                                <span>Engine Parameters</span>
+                            </div>
+                            <i data-lucide="chevron-down" class="toggle-arrow" id="settings-arrow"></i>
+                        </div>
+                        <div class="settings-body hidden" id="settings-body">
+                            <div class="settings-grid">
+                                <div class="setting-item">
+                                    <label for="param-max-words">Chunk Size (Words)</label>
+                                    <input type="number" id="param-max-words" min="10" max="300" value="80">
+                                </div>
+                                <div class="setting-item">
+                                    <label for="param-overlap">Overlap (Words)</label>
+                                    <input type="number" id="param-overlap" min="0" max="150" value="15">
+                                </div>
+                                <div class="setting-item">
+                                    <label for="param-top-k">Retrieve Count (Top-K)</label>
+                                    <input type="number" id="param-top-k" min="1" max="10" value="2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Query Box -->
+                    <div class="query-section">
+                        <div class="panel-title">
+                            <i data-lucide="help-circle" class="icon-md"></i>
+                            <h3>Ask Question</h3>
+                        </div>
+                        
+                        <!-- Preloaded Query Pills -->
+                        <div class="query-pills" id="query-pills-list">
+                            <!-- Loaded dynamically -->
+                        </div>
+
+                        <!-- Query Input -->
+                        <div class="query-input-wrapper">
+                            <input type="text" id="query-input" placeholder="Type your query here or select a quick question above..." autocomplete="off">
+                            <button id="run-rag-btn" class="btn btn-primary">
+                                <i data-lucide="play" class="icon-sm"></i>
+                                <span>Run RAG</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Output -->
+                    <div class="results-section">
+                        <div class="results-tabs">
+                            <div class="results-tab active" data-tab="answer">Grounded Answer</div>
+                            <div class="results-tab" data-tab="retrieved">Retrieved Chunks</div>
+                        </div>
+                        
+                        <!-- Grounded Answer Tab Content -->
+                        <div class="tab-content active" id="tab-content-answer">
+                            <div class="empty-state" id="answer-empty">
+                                <i data-lucide="message-square" class="icon-lg"></i>
+                                <p>Click "Run RAG" to execute search and ask the grounded assistant.</p>
+                            </div>
+                            <div class="loading-state hidden" id="answer-loading">
+                                <div class="spinner"></div>
+                                <p>Running semantic matching & querying LLM client...</p>
+                            </div>
+                            <div class="answer-display-box hidden" id="answer-display-box">
+                                <div class="answer-body" id="answer-text">
+                                    <!-- Loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Retrieved Chunks Tab Content -->
+                        <div class="tab-content" id="tab-content-retrieved">
+                            <div class="empty-state" id="retrieved-empty">
+                                <i data-lucide="search" class="icon-lg"></i>
+                                <p>Perform a query search to inspect vector retrieval similarity details.</p>
+                            </div>
+                            <div class="retrieved-chunks-list" id="retrieved-chunks-list">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- UI Logic Script -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
