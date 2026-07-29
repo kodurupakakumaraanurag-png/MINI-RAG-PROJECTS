@@ -183,26 +183,42 @@ def query_rag():
     if not usecase_id or not query:
         return jsonify({"error": "Missing usecase_id or query"}), 400
         
-    usecase = USE_CASES.get(usecase_id)
-    if not usecase:
-        return jsonify({"error": "Invalid usecase_id"}), 400
+    # Check if this is a custom upload
+    if usecase_id == "custom_upload":
+        document_text = data.get("document", "").strip()
+        persona = data.get("persona", "a helpful assistant").strip()
+        default_max_words = 80
+        default_overlap = 15
+        default_top_k = 2
+        
+        if not document_text:
+            return jsonify({"error": "No document text provided for custom RAG"}), 400
+    else:
+        usecase = USE_CASES.get(usecase_id)
+        if not usecase:
+            return jsonify({"error": "Invalid usecase_id"}), 400
+        document_text = usecase["document"]
+        persona = usecase["persona"]
+        default_max_words = usecase["default_max_words"]
+        default_overlap = usecase["default_overlap"]
+        default_top_k = usecase["default_top_k"]
         
     # Get custom parameters or use defaults
-    max_words = int(data.get("max_words", usecase["default_max_words"]))
-    overlap = int(data.get("overlap", usecase["default_overlap"]))
-    top_k = int(data.get("top_k", usecase["default_top_k"]))
+    max_words = int(data.get("max_words", default_max_words))
+    overlap = int(data.get("overlap", default_overlap))
+    top_k = int(data.get("top_k", default_top_k))
     
     # Initialize engine with params
     engine = RAGEngine(max_words=max_words, overlap=overlap, top_k=top_k)
     
     # Generate all chunks
-    all_chunks = engine._chunk(usecase["document"])
+    all_chunks = engine._chunk(document_text)
     
     # Perform vector search
     retrieved = engine.retrieve(query, all_chunks)
     
     # Get answer
-    answer = engine.ask(query, retrieved, persona=usecase["persona"])
+    answer = engine.ask(query, retrieved, persona=persona)
     
     # Format response
     formatted_retrieved = []

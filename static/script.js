@@ -2,6 +2,7 @@
 let useCasesData = {};
 let activeUseCaseId = "";
 let viewingChunks = false;
+let customDocumentText = "";  // Stores the contents of the uploaded text file
 
 // DOM Elements
 const useCasesList = document.getElementById("use-cases-list");
@@ -9,6 +10,11 @@ const useCaseTitle = document.getElementById("use-case-title");
 const useCaseDesc = document.getElementById("use-case-desc");
 const useCasePersona = document.getElementById("use-case-persona");
 const documentDisplay = document.getElementById("document-display");
+const uploadContainer = document.getElementById("upload-container");
+const fileInput = document.getElementById("file-input");
+const uploadDropzone = document.getElementById("upload-dropzone");
+const paramCustomPersona = document.getElementById("param-custom-persona");
+
 const chunksDisplay = document.getElementById("chunks-display");
 const chunksList = document.getElementById("chunks-list");
 const chunkCountBadge = document.getElementById("chunk-count-badge");
@@ -42,6 +48,7 @@ const retrievedChunksList = document.getElementById("retrieved-chunks-list");
 document.addEventListener("DOMContentLoaded", () => {
     fetchUseCases();
     setupEventListeners();
+    setupFileUpload();
 });
 
 // Event Listeners
@@ -51,13 +58,18 @@ function setupEventListeners() {
         viewingChunks = !viewingChunks;
         if (viewingChunks) {
             documentDisplay.classList.add("hidden");
+            uploadContainer.classList.add("hidden");
             chunksDisplay.classList.remove("hidden");
             toggleChunksBtn.querySelector("span").textContent = "View Document";
             toggleChunksBtn.querySelector("i").setAttribute("data-lucide", "file-text");
             // Regenerate chunks list in case parameters were altered
             generateLocalChunks();
         } else {
-            documentDisplay.classList.remove("hidden");
+            if (activeUseCaseId === "custom_upload") {
+                uploadContainer.classList.remove("hidden");
+            } else {
+                documentDisplay.classList.remove("hidden");
+            }
             chunksDisplay.classList.add("hidden");
             toggleChunksBtn.querySelector("span").textContent = "View Chunks";
             toggleChunksBtn.querySelector("i").setAttribute("data-lucide", "layers");
@@ -97,6 +109,68 @@ function setupEventListeners() {
     });
 }
 
+// Setup File Upload Interactions
+function setupFileUpload() {
+    // Handle File Browser Select
+    fileInput.addEventListener("change", (e) => {
+        if (e.target.files.length > 0) {
+            handleUploadedFile(e.target.files[0]);
+        }
+    });
+
+    // Handle Drag & Drop
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadDropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadDropzone.classList.add('dragover');
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadDropzone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadDropzone.classList.remove('dragover');
+        }, false);
+    });
+
+    uploadDropzone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0) {
+            handleUploadedFile(files[0]);
+        }
+    });
+}
+
+// Process local text file
+function handleUploadedFile(file) {
+    if (!file.name.endsWith('.txt')) {
+        alert("Only plain text (.txt) files are supported!");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        customDocumentText = e.target.result;
+        
+        // Visual indicator in dropzone
+        const wordCount = customDocumentText.split(/\s+/).filter(w => w.length > 0).length;
+        uploadDropzone.innerHTML = `
+            <i data-lucide="file-check" class="upload-icon" style="color: var(--success)"></i>
+            <p class="upload-title" style="color: var(--success)">File Loaded Successfully!</p>
+            <p class="upload-subtitle">${file.name} (${wordCount} words, ${customDocumentText.length} characters)</p>
+            <label for="file-input" class="btn btn-secondary btn-sm">Change File</label>
+        `;
+        lucide.createIcons();
+
+        // Update local chunks rendering
+        generateLocalChunks();
+    };
+    reader.readAsText(file);
+}
+
 // Fetch Use Cases Config from Server
 async function fetchUseCases() {
     try {
@@ -114,9 +188,11 @@ async function fetchUseCases() {
     }
 }
 
-// Render Use Cases in the Sidebar
+// Render Use Cases in the Sidebar including custom upload option
 function renderSidebar() {
     useCasesList.innerHTML = "";
+    
+    // Render standard use cases
     Object.keys(useCasesData).forEach(key => {
         const useCase = useCasesData[key];
         const item = document.createElement("div");
@@ -129,6 +205,17 @@ function renderSidebar() {
         item.addEventListener("click", () => selectUseCase(key));
         useCasesList.appendChild(item);
     });
+
+    // Add Custom Upload tab at the bottom
+    const customItem = document.createElement("div");
+    customItem.className = `nav-item ${activeUseCaseId === 'custom_upload' ? 'active' : ''}`;
+    customItem.id = "nav-custom_upload";
+    customItem.innerHTML = `
+        <span class="nav-title" style="color: var(--primary)">📁 Custom Document Upload</span>
+        <span class="nav-desc">Upload your own .txt file notes and query them.</span>
+    `;
+    customItem.addEventListener("click", () => selectUseCase("custom_upload"));
+    useCasesList.appendChild(customItem);
 }
 
 // Select Active Use Case
@@ -139,39 +226,56 @@ function selectUseCase(key) {
     document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
     document.getElementById(`nav-${key}`).classList.add("active");
     
-    const useCase = useCasesData[key];
-    
-    // Update header info
-    useCaseTitle.textContent = useCase.title;
-    useCaseDesc.textContent = useCase.description;
-    useCasePersona.querySelector("span").textContent = `Persona: ${useCase.persona}`;
-    
-    // Update Parameters Inputs
-    paramMaxWords.value = useCase.default_max_words;
-    paramOverlap.value = useCase.default_overlap;
-    paramTopK.value = useCase.default_top_k;
-    
-    // Update Document Display
-    documentDisplay.textContent = useCase.document;
-    
-    // Generate preloaded queries
-    renderQueryPills(useCase.queries);
-    
-    // Clear Outputs
-    clearOutputs();
-    
-    // Reset view to Document (not chunks)
+    // Reset view to Document/Upload (not chunks list)
     viewingChunks = false;
-    documentDisplay.classList.remove("hidden");
     chunksDisplay.classList.add("hidden");
     toggleChunksBtn.querySelector("span").textContent = "View Chunks";
     toggleChunksBtn.querySelector("i").setAttribute("data-lucide", "layers");
     
+    if (key === "custom_upload") {
+        // Toggle viewports
+        documentDisplay.classList.add("hidden");
+        uploadContainer.classList.remove("hidden");
+
+        useCaseTitle.textContent = "📁 Custom Document RAG";
+        useCaseDesc.textContent = "Upload your own study notes, policy guides, or textual files (.txt) and query them.";
+        useCasePersona.querySelector("span").textContent = "Persona: Custom AI Assistant";
+
+        // Reset inputs to standard defaults
+        paramMaxWords.value = 80;
+        paramOverlap.value = 15;
+        paramTopK.value = 2;
+
+        renderQueryPills([]); // Clear predefined pills
+        clearOutputs();
+        generateLocalChunks(); // Display count for custom
+    } else {
+        documentDisplay.classList.remove("hidden");
+        uploadContainer.classList.add("hidden");
+
+        const useCase = useCasesData[key];
+        
+        // Update header info
+        useCaseTitle.textContent = useCase.title;
+        useCaseDesc.textContent = useCase.description;
+        useCasePersona.querySelector("span").textContent = `Persona: ${useCase.persona}`;
+        
+        // Update Parameters Inputs
+        paramMaxWords.value = useCase.default_max_words;
+        paramOverlap.value = useCase.default_overlap;
+        paramTopK.value = useCase.default_top_k;
+        
+        // Update Document Display
+        documentDisplay.textContent = useCase.document;
+        
+        // Generate preloaded queries
+        renderQueryPills(useCase.queries);
+        clearOutputs();
+        generateLocalChunks();
+    }
+    
     // Reinitialize Icons
     lucide.createIcons();
-    
-    // Generate local count for the chunks badge
-    generateLocalChunks();
 }
 
 // Generate Preloaded Query Pills
@@ -205,7 +309,19 @@ function clearOutputs() {
 
 // Generate Chunks locally for the Sidebar/Document info panel
 function generateLocalChunks() {
-    const documentText = useCasesData[activeUseCaseId].document;
+    let documentText = "";
+    if (activeUseCaseId === "custom_upload") {
+        documentText = customDocumentText;
+    } else {
+        documentText = useCasesData[activeUseCaseId].document;
+    }
+
+    if (!documentText) {
+        chunkCountBadge.textContent = "0 Chunks";
+        chunksList.innerHTML = `<div class="empty-state"><p>Please upload a text file to preview chunks.</p></div>`;
+        return;
+    }
+    
     const maxWords = parseInt(paramMaxWords.value) || 80;
     const overlap = parseInt(paramOverlap.value) || 15;
     
@@ -252,6 +368,28 @@ async function executeQuery() {
     const query = queryInput.value.trim();
     if (!query) return;
     
+    const maxWords = parseInt(paramMaxWords.value) || 80;
+    const overlap = parseInt(paramOverlap.value) || 15;
+    const topK = parseInt(paramTopK.value) || 2;
+
+    // Payload variables
+    let payload = {
+        usecase_id: activeUseCaseId,
+        query: query,
+        max_words: maxWords,
+        overlap: overlap,
+        top_k: topK
+    };
+
+    if (activeUseCaseId === "custom_upload") {
+        if (!customDocumentText) {
+            alert("Please upload a .txt notes file before running a query!");
+            return;
+        }
+        payload.document = customDocumentText;
+        payload.persona = paramCustomPersona.value.trim() || "a helpful assistant";
+    }
+    
     // Clear outputs, show loader
     answerEmpty.classList.add("hidden");
     answerLoading.classList.remove("hidden");
@@ -263,23 +401,13 @@ async function executeQuery() {
     // Auto switch to Answer Tab
     resultsTabs[0].click();
     
-    const maxWords = parseInt(paramMaxWords.value) || 80;
-    const overlap = parseInt(paramOverlap.value) || 15;
-    const topK = parseInt(paramTopK.value) || 2;
-    
     try {
         const response = await fetch("/api/query", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                usecase_id: activeUseCaseId,
-                query: query,
-                max_words: maxWords,
-                overlap: overlap,
-                top_k: topK
-            })
+            body: JSON.stringify(payload)
         });
         
         const data = await response.json();

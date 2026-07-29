@@ -65,6 +65,22 @@
                         <div id="document-display" class="document-display">
                             <!-- Loaded dynamically -->
                         </div>
+
+                        <!-- Upload File Area (Shown for custom_upload only) -->
+                        <div id="upload-container" class="upload-container hidden">
+                            <div class="upload-dropzone" id="upload-dropzone">
+                                <i data-lucide="upload-cloud" class="upload-icon"></i>
+                                <p class="upload-title">Drag & Drop file here</p>
+                                <p class="upload-subtitle">Only plain text (.txt) files are supported</p>
+                                <span class="or-separator">or</span>
+                                <label for="file-input" class="btn btn-secondary btn-sm">Browse Files</label>
+                                <input type="file" id="file-input" accept=".txt" class="hidden">
+                            </div>
+                            <div class="custom-persona-wrapper">
+                                <label for="param-custom-persona">Define AI Persona (System Prompt)</label>
+                                <input type="text" id="param-custom-persona" placeholder="e.g. a patient physics tutor explaining to a freshman" value="a patient and friendly private tutor">
+                            </div>
+                        </div>
                         
                         <!-- Chunks Container (Hidden by default, toggled by button) -->
                         <div id="chunks-display" class="chunks-display hidden">
