@@ -114,6 +114,32 @@ function setupEventListeners() {
 
 // Setup File Upload Interactions
 function setupFileUpload() {
+    const browseBtn = document.getElementById("browse-btn");
+    const changeFileBtn = document.getElementById("change-file-btn");
+
+    // Click Browse button triggers file selection
+    if (browseBtn) {
+        browseBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            fileInput.click();
+        });
+    }
+
+    // Click Change File button triggers file selection
+    if (changeFileBtn) {
+        changeFileBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            fileInput.click();
+        });
+    }
+
+    // Click anywhere on dropzone (excluding child buttons) triggers file selection
+    uploadDropzone.addEventListener("click", (e) => {
+        if (e.target !== browseBtn && e.target !== changeFileBtn && e.target !== fileInput) {
+            fileInput.click();
+        }
+    });
+
     // Handle File Browser Select
     fileInput.addEventListener("change", (e) => {
         if (e.target.files.length > 0) {
