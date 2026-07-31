@@ -1,328 +1,218 @@
 import os
+import sys
 import re
-from typing import List, Dict, Any, Tuple
+
+try:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
+from dotenv import load_dotenv
+load_dotenv()
+
 import anthropic
+import openai
+import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
-
-def load_env_file():
-    """
-    Manually loads key-value pairs from .env in the project directory
-    to avoid extra dependencies.
-    """
-    possible_paths = [
-        os.path.join(os.path.dirname(__file__), "..", ".env"),
-        os.path.join(os.path.dirname(__file__), ".env"),
-        ".env"
-    ]
-    for path in possible_paths:
-        if os.path.exists(path):
-            try:
-                with open(path, "r", encoding="utf-8") as f:
-                    for line in f:
-                        line = line.strip()
-                        if line and not line.startswith("#"):
-                            parts = line.split("=", 1)
-                            if len(parts) == 2:
-                                key = parts[0].strip()
-                                val = parts[1].strip()
-                                # Strip optional quotes around value
-                                if (val.startswith('"') and val.endswith('"')) or (val.startswith("'") and val.endswith("'")):
-                                    val = val[1:-1]
-                                os.environ[key] = val
-                break
-            except Exception:
-                pass
 
 class RAGEngine:
-    def __init__(self, system_prompt: str = None, max_words: int = 100, overlap: int = 20, top_k: int = 2):
-        """
-        Initializes the RAGEngine with chunking parameters and dynamic LLM client selection.
-        """
+    def __init__(self, max_words=80, overlap=15, top_k=2):
         self.max_words = max_words
         self.overlap = overlap
         self.top_k = top_k
-        self.system_prompt = system_prompt
-        
-        # Load local .env if present
-        load_env_file()
-        
-        # Resolve which API key is available
-        api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("API_KEY") or os.environ.get("OPENAI_API_KEY")
-        
-        if api_key:
-            # Determine provider: OpenAI vs Anthropic
-            if api_key.startswith("sk-proj-") or api_key.startswith("org-") or "proj-" in api_key:
-                self.provider = "openai"
-                import openai
-                self.client = openai.OpenAI(api_key=api_key)
-            elif api_key.startswith("sk-ant-"):
-                self.provider = "anthropic"
-                self.client = anthropic.Anthropic(api_key=api_key)
-            else:
-                if "Blbk" in api_key or len(api_key) > 100:
-                    self.provider = "openai"
-                    import openai
-                    self.client = openai.OpenAI(api_key=api_key)
-                else:
-                    self.provider = "anthropic"
-                    self.client = anthropic.Anthropic(api_key=api_key)
-        else:
-            self.provider = "anthropic"
-            self.client = anthropic.Anthropic()
 
-    def _chunk(self, text: str) -> List[Dict[str, Any]]:
-        """
-        Splits text into word-based chunks of size max_words with overlap.
-        """
+    def _chunk(self, text: str) -> list[dict]:
+        """Splits text into overlapping word chunks and returns list of dictionaries."""
         words = text.split()
-        if not words:
-            return []
-        
         chunks = []
+        if not words:
+            return chunks
+            
+        step = self.max_words - self.overlap
+        if step <= 0:
+            step = 1
+            
         i = 0
-        chunk_idx = 0
+        idx = 0
         while i < len(words):
             chunk_words = words[i:i + self.max_words]
-            chunk_text = " ".join(chunk_words)
             chunks.append({
-                'index': chunk_idx,
-                'text': chunk_text
+                "index": idx,
+                "text": " ".join(chunk_words)
             })
-            chunk_idx += 1
-            
-            step = max(1, self.max_words - self.overlap)
+            idx += 1
             i += step
-            
             if i >= len(words):
                 break
-                
         return chunks
 
-    def retrieve(self, query: str, chunks: List[Dict[str, Any]]) -> List[Tuple[Dict[str, Any], float]]:
-        """
-        Performs vector search using TF-IDF and Cosine Similarity on the query and chunks.
-        """
+    def retrieve(self, query: str, chunks: list[dict]) -> list[tuple[dict, float]]:
+        """Fits TF-IDF on chunks, scores similarity, and returns ranked list of (chunk, score) tuples."""
         if not chunks:
             return []
             
-        corpus = [chunk['text'] for chunk in chunks]
-        vectorizer = TfidfVectorizer(stop_words='english')
+        chunk_texts = [c["text"] for c in chunks]
+        vectorizer = TfidfVectorizer(stop_words="english")
         
         try:
-            tfidf_matrix = vectorizer.fit_transform(corpus)
+            chunk_vectors = vectorizer.fit_transform(chunk_texts)
             query_vector = vectorizer.transform([query])
+            similarities = cosine_similarity(query_vector, chunk_vectors).flatten()
+        except Exception:
+            # Fallback if TF-IDF fails (e.g., all words filtered as stop words)
+            return [(c, 0.0) for c in chunks[:self.top_k]]
             
-            similarities = cosine_similarity(query_vector, tfidf_matrix).flatten()
-            scored_chunks = list(zip(chunks, similarities))
+        ranked_indices = np.argsort(similarities)[::-1]
+        
+        results = []
+        for idx in ranked_indices[:self.top_k]:
+            results.append((chunks[idx], float(similarities[idx])))
             
-            scored_chunks.sort(key=lambda x: x[1], reverse=True)
-            return scored_chunks[:self.top_k]
+        return results
+
+    def ask(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str = None) -> str:
+        """Generates grounded response using Anthropic or OpenAI API, with a local heuristic fallback."""
+        # Enforce strict grounding: if retrieval score is zero, assume missing info
+        if not retrieved_chunks or all(score == 0.0 for _, score in retrieved_chunks):
+            return "I don't have that information"
             
-        except ValueError:
-            return [(chunk, 0.0) for chunk in chunks[:self.top_k]]
-
-    def _local_fallback_ask(self, query: str, retrieved_chunks: List[Tuple[Dict[str, Any], float]], persona: str = None) -> str:
-        """
-        Local fallback engine to produce grounded, citation-backed responses when LLM API keys are invalid or have no quota.
-        """
-        query_lower = query.lower()
-        
-        if not retrieved_chunks or all(score < 0.001 for _, score in retrieved_chunks):
-            return "I don't have that information"
-
-        chunk_texts = [c[0]['text'].lower() for c in retrieved_chunks]
-        
-        # 1. Use Case 1: Interview Prep
-        if any("logistics tracker" in text or "techcorp" in text for text in chunk_texts) and not any("history of antigravity" in text for text in chunk_texts):
-            if "real-time" in query_lower or "logistics" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "logistics" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"As {persona or 'an interview coach'}, I would highlight that in your Real-time Logistics Tracker Project, "
-                        f"you built a cross-platform React Native mobile application that tracks package deliveries in real-time. "
-                        f"You integrated the Google Maps API and WebSockets (Socket.io) for live driver location updates, "
-                        f"which successfully served over 1,000 active daily users and reduced delivery query tickets by 25% [Source {idx}]."
-                    )
-            return "I don't have that information"
-
-        # 2. Use Case 2: Campus FAQ
-        elif any("library borrowing" in text or "hostel curfew" in text or "tuition fee" in text or "fee payments" in text for text in chunk_texts):
-            if "library" in query_lower or "borrow" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "library" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"As {persona or 'a friendly campus helpdesk assistant'}, I can tell you that standard students can "
-                        f"borrow a maximum of 5 books at any given time for a loan period of 14 days per book [Source {idx}]."
-                    )
-            elif "hostel" in query_lower and "10 pm" in query_lower:
-                idx_weekend = next((c[0]['index'] for c in retrieved_chunks if "weekend" in c[0]['text'].lower() or "sunday" in c[0]['text'].lower()), None)
-                if idx_weekend is not None:
-                    return (
-                        f"Yes! As {persona or 'a friendly campus helpdesk assistant'}, I'm happy to inform you that you can enter "
-                        f"the hostel at 10 PM on a Saturday. Weekend curfews (Saturday and Sunday) are extended to 11:00 PM [Source {idx_weekend}]."
-                    )
-            elif "late" in query_lower or "trouble" in query_lower:
-                answers = []
-                for chunk, score in retrieved_chunks:
-                    if score > 0.01:
-                        text_l = chunk['text'].lower()
-                        if "hostel" in text_l and ("warden" in text_l or "disciplinary" in text_l or "$20" in text_l):
-                            answers.append(f"arriving after curfew hours without prior written permission from the hostel warden will face disciplinary actions, including parent notification and a $20 fine [Source {chunk['index']}]")
-                        elif ("tuition" in text_l or "fee" in text_l) and "$50" in text_l:
-                            answers.append(f"paying tuition fees late (between the 11th and 20th) incurs a late fee of $50, and non-payment after the 20th results in suspension of student registration [Source {chunk['index']}]")
-                        elif "library" in text_l and "fine" in text_l and "$1.00" in text_l:
-                            answers.append(f"returning library books late incurs a late fine of $1.00 per book per day [Source {chunk['index']}]")
-                if answers:
-                    prefix = f"Yes, as {persona or 'a friendly campus helpdesk assistant'}, you can get into trouble for being late in a few ways: "
-                    return prefix + ", and ".join(answers) + "."
-            return "I don't have that information"
-
-        # 3. Use Case 3: Study Buddy
-        elif any("cpu scheduling" in text or "first-come" in text or "round robin" in text for text in chunk_texts):
-            if "convoy effect" in query_lower or "fcfs" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "convoy" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"As {persona or 'your study partner'}, here is the explanation: The First-Come, First-Served (FCFS) CPU "
-                        f"scheduling algorithm causes the convoy effect because it is a non-preemptive queue-based system. A single long process "
-                        f"running first can delay all subsequent short processes behind it, leading to low utilization of both CPU and device resources [Source {idx}]."
-                    )
-            elif "round robin" in query_lower or "overhead" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "round robin" in c[0]['text'].lower() or "switching" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"As {persona or 'your study partner'}, Round Robin CPU scheduling adds system overhead because it is preemptive and "
-                        f"relies on frequent context switching. In a context switch, the OS must save the register state of the running process "
-                        f"and load the next process's state in the queue, which consumes CPU time rather than executing process instructions [Source {idx}]."
-                    )
-            return "I don't have that information"
-
-        # 4. Use Case 4: E-Commerce Support
-        elif any("nomad pro" in text or "return policy" in text for text in chunk_texts):
-            if "laptop" in query_lower or "colors" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "laptop" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"As {persona or 'a polite customer support agent'}, I can confirm that the Nomad Pro Backpack features "
-                        f"a dedicated, padded laptop sleeve that fits up to 16-inch laptops, meaning it will easily fit a 15-inch model. "
-                        f"It is available in Midnight Black, Olive Green, Steel Blue, and Charcoal Gray [Source {idx}]."
-                    )
-            elif "return" in query_lower or "refund" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "return" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"No, if you return the backpack after 20 days, you will not receive a refund. As {persona or 'a polite customer support agent'}, "
-                        f"I must point out that our return policy strictly enforces a 15-day window from delivery for full refunds, and returns initiated "
-                        f"after 15 days are strictly not eligible for refunds or store credits [Source {idx}]."
-                    )
-            return "I don't have that information"
-
-        # 5. Use Case 5: Code Docs
-        elif any("ragengine codebase" in text or "function: ragengine" in text for text in chunk_texts):
-            if "overlap" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "overlap" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"As {persona or 'a precise technical assistant'}, in `RAGEngine._chunk()`, the overlap parameter represents "
-                        f"the number of shared words between consecutive chunks. This matters because it prevents the loss of semantic context at the "
-                        f"boundaries, ensuring that details split in half are captured fully in at least one chunk [Source {idx}]."
-                    )
-            elif "ask" in query_lower or "nothing relevant" in query_lower:
-                idx = next((c[0]['index'] for c in retrieved_chunks if "ask" in c[0]['text'].lower()), None)
-                if idx is not None:
-                    return (
-                        f"As {persona or 'a precise technical assistant'}, the `ask()` function strictly returns the fallback string "
-                        f"'I don't have that information' if the context lacks the required information to answer the question [Source {idx}]."
-                    )
-            return "I don't have that information"
-
-        # 6. Dynamic Grounded Extractor for custom student uploads (Keyword + Sentence extraction)
-        # Extract query words to locate relevant sentences (excluding small stop words)
-        stop_words = {'what', 'is', 'the', 'who', 'and', 'when', 'where', 'how', 'a', 'an', 'of', 'in', 'by', 'to', 'for', 'on', 'with', 'at', 'it', 'was', 'this', 'does'}
-        query_words = [w for w in re.split(r'\W+', query_lower) if w and w not in stop_words]
-        
-        best_sentence = ""
-        best_source_idx = -1
-        max_matches = 0
-        
-        for chunk, score in retrieved_chunks:
-            if score > 0.02:
-                # Split text into sentences
-                sentences = re.split(r'(?<=[.!?])\s+', chunk['text'])
-                for s in sentences:
-                    s_lower = s.lower()
-                    matches = sum(1 for w in query_words if w in s_lower)
-                    if matches > max_matches:
-                        max_matches = matches
-                        best_sentence = s.strip()
-                        best_source_idx = chunk['index']
-                        
-        if max_matches >= 1 and best_sentence:
-            return f"According to the provided notes: {best_sentence} [Source {best_source_idx}]."
-            
-        return "I don't have that information"
-
-    def ask(self, query: str, retrieved_chunks: List[Tuple[Dict[str, Any], float]], persona: str = None) -> str:
-        """
-        Formats context with source identifiers and runs the LLM client (Claude or GPT) to answer the query
-        under strict grounding rules. Automatically falls back to a local grounded heuristic engine if the API fails.
-        """
-        # Format the retrieved chunks for the prompt context
+        # Format retrieval context block
         context_str = ""
         for chunk, score in retrieved_chunks:
-            context_str += f"[Source {chunk['index']}]:\n{chunk['text']}\n\n"
+            context_str += f"[Source {chunk['index']}]\n{chunk['text']}\n\n"
             
-        # Grounding system prompt instructions
-        base_system_prompt = (
-            "You are a helpful assistant. Your primary task is to answer the user's question using ONLY "
-            "the provided context chunks. Follow these grounding instructions strictly:\n"
-            "1. Answer the question using ONLY the facts explicitly stated in the context.\n"
-            "2. If the context does not contain the information needed to answer the question, you MUST "
-            "state exactly: 'I don't have that information' and do not add any explanation or other text.\n"
-            "3. Cite the source chunk identifier (e.g., [Source X], where X is the index number) for any "
-            "information you retrieve from the context."
+        persona_str = persona or "a helpful RAG assistant"
+        
+        prompt = (
+            f"You are {persona_str}.\n\n"
+            "RULES FOR ANSWERING:\n"
+            "1. Answer the User Query ONLY using the facts present in the Context section below.\n"
+            "2. Do NOT use outside knowledge, extrapolate, or assume facts not explicitly mentioned.\n"
+            "3. If the Context does not contain the answer, you must return exactly the string: \"I don't have that information\" and nothing else.\n"
+            "4. Cite your facts by referencing the source label in brackets (e.g., [Source 0], [Source 1], etc.) inline whenever citing a fact.\n\n"
+            "Context:\n"
+            f"{context_str}\n"
+            f"User Query: {query}\n\n"
+            "Answer:"
         )
         
-        if persona:
-            system_prompt = f"You are {persona}.\n\n{base_system_prompt}"
-        else:
-            system_prompt = self.system_prompt if self.system_prompt else base_system_prompt
-            
-        user_message = (
-            f"Here is the context to search:\n"
-            f"---------------------\n"
-            f"{context_str}"
-            f"---------------------\n\n"
-            f"Question: {query}\n\n"
-            f"Answer:"
-        )
+        # Detect API keys
+        gemini_key = os.getenv("GEMINI_API_KEY")
+        anthropic_key = os.getenv("ANTHROPIC_API_KEY")
+        openai_key = os.getenv("OPENAI_API_KEY") or os.getenv("API_KEY")
         
-        try:
-            if self.provider == "openai":
-                response = self.client.chat.completions.create(
-                    model="gpt-4o",
-                    max_tokens=1024,
-                    temperature=0.0,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_message}
-                    ]
-                )
-                return response.choices[0].message.content.strip()
-            else:
-                response = self.client.messages.create(
+        # Route fallback/cleanup if API_KEY is set to Gemini key (starts with AQ.)
+        if openai_key and (openai_key.startswith("AQ.") or not openai_key.startswith("sk-")):
+            gemini_key = openai_key
+            openai_key = None
+            
+        if gemini_key:
+            # Google Gemini 3.5 Flash
+            try:
+                import requests
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={gemini_key}"
+                headers = {"Content-Type": "application/json"}
+                payload = {
+                    "contents": [
+                        {
+                            "parts": [
+                                {
+                                    "text": prompt
+                                }
+                            ]
+                        }
+                    ],
+                    "generationConfig": {
+                        "temperature": 0.2,
+                        "maxOutputTokens": 500
+                    },
+                    "systemInstruction": {
+                        "parts": [
+                            {
+                                "text": f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information"
+                            }
+                        ]
+                    }
+                }
+                res = requests.post(url, headers=headers, json=payload, timeout=30)
+                res.raise_for_status()
+                res_data = res.json()
+                return res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
+            except Exception:
+                return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+                
+        elif anthropic_key and anthropic_key.startswith("sk-ant-"):
+            # Anthropic Claude 3.5 Sonnet
+            try:
+                client = anthropic.Anthropic(api_key=anthropic_key)
+                response = client.messages.create(
                     model="claude-3-5-sonnet-20241022",
-                    max_tokens=1024,
-                    temperature=0.0,
-                    system=system_prompt,
+                    max_tokens=500,
+                    temperature=0.2,
+                    system=f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information",
                     messages=[
-                        {"role": "user", "content": user_message}
+                        {"role": "user", "content": prompt}
                     ]
                 )
                 return response.content[0].text.strip()
-        except Exception as e:
-            # Output warning and run local fallback engine
-            print(f"[RAG Warning]: LLM provider call failed ({str(e)}). Using local grounded heuristic engine.")
-            return self._local_fallback_ask(query, retrieved_chunks, persona)
+            except Exception:
+                return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+        elif openai_key:
+            # OpenAI GPT-4o (handles sk-proj- or standard sk- keys)
+            try:
+                client = openai.OpenAI(api_key=openai_key)
+                response = client.chat.completions.create(
+                    model="gpt-4o",
+                    max_tokens=500,
+                    temperature=0.2,
+                    messages=[
+                        {"role": "system", "content": f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information"},
+                        {"role": "user", "content": prompt}
+                    ]
+                )
+                return response.choices[0].message.content.strip()
+            except Exception:
+                return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+        else:
+            return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+
+    def _heuristic_fallback(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str) -> str:
+        """Determins a fallback response programmatically by extracting sentences containing search query keywords."""
+        keywords = [w.lower().strip(",.?!()\"'") for w in query.split()]
+        stop_words = {"what", "is", "the", "of", "and", "a", "to", "in", "for", "on", "with", "at", "by", "an", "this", "that", "how", "why", "who", "where", "can", "could", "would", "should", "will", "do", "does", "did"}
+        keywords = [w for w in keywords if w and w not in stop_words and len(w) > 2]
+        
+        sentences_found = []
+        for chunk, score in retrieved_chunks:
+            if score == 0.0:
+                continue
+            sentences = re.split(r'(?<=[.!?])\s+', chunk["text"])
+            for sent in sentences:
+                sent_clean = sent.lower()
+                matches = sum(1 for kw in keywords if kw in sent_clean)
+                if matches > 0:
+                    sentences_found.append({
+                        "text": sent.strip(),
+                        "matches": matches,
+                        "source": f"[Source {chunk['index']}]",
+                        "score": score
+                    })
+                    
+        sentences_found.sort(key=lambda x: (-x["matches"], -x["score"]))
+        
+        if not sentences_found:
+            return "I don't have that information"
+            
+        selected_lines = []
+        used_sents = set()
+        for s in sentences_found[:3]:
+            if s["text"] not in used_sents:
+                selected_lines.append(f"{s['text']} {s['source']}")
+                used_sents.add(s["text"])
+                
+        intro = f"[Local Heuristic Fallback] As {persona}, here is the matching facts from the document:\n\n"
+        return intro + "\n\n".join(selected_lines)

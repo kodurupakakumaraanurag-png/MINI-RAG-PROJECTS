@@ -1,6 +1,4 @@
 anthropic
-openai
 scikit-learn
-numpy
-flask
 pypdf
+rich

@@ -1,4 +1,6 @@
 import os
+import io
+import pypdf
 from flask import Flask, jsonify, request, render_template
 from engine.rag_engine import RAGEngine
 
@@ -173,6 +175,43 @@ def index():
 @app.route('/api/usecases', methods=['GET'])
 def get_usecases():
     return jsonify(USE_CASES)
+
+@app.route('/api/upload', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part in request"}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
+        
+    filename = file.filename.lower()
+    extracted_text = ""
+    
+    try:
+        if filename.endswith('.pdf'):
+            pdf_file = io.BytesIO(file.read())
+            reader = pypdf.PdfReader(pdf_file)
+            text_list = []
+            for page in reader.pages:
+                extracted = page.extract_text()
+                if extracted:
+                    text_list.append(extracted)
+            extracted_text = "\n".join(text_list)
+        elif filename.endswith('.txt'):
+            extracted_text = file.read().decode('utf-8', errors='ignore')
+        else:
+            return jsonify({"error": "Unsupported file format. Please upload a .pdf or .txt file."}), 400
+            
+        if not extracted_text.strip():
+            return jsonify({"error": "No text could be extracted from the file."}), 400
+            
+        return jsonify({
+            "text": extracted_text,
+            "filename": file.filename,
+            "word_count": len(extracted_text.split())
+        })
+    except Exception as e:
+        return jsonify({"error": f"Error parsing file: {str(e)}"}), 500
 
 @app.route('/api/query', methods=['POST'])
 def query_rag():

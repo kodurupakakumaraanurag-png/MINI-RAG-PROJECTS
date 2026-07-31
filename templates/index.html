@@ -3,203 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modular RAG Systems Playground</title>
-    <!-- Google Fonts -->
+    <title>Mini-RAG Multi-Use Case Dashboard</title>
+    <!-- Google Fonts Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Highlight.js for code rendering -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+    <!-- Custom CSS styles -->
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <div class="app-background"></div>
     <div class="app-container">
-        <!-- Sidebar Navigation -->
+        
+        <!-- Sidebar Controls -->
         <aside class="sidebar">
-            <div class="logo-area">
-                <i data-lucide="shield-check" class="logo-icon"></i>
-                <h2>Antigravity RAG</h2>
-            </div>
-            <div class="sidebar-title">USE CASES</div>
-            <nav class="use-case-nav" id="use-cases-list">
-                <!-- Loaded dynamically by JS -->
-            </nav>
-            <div class="sidebar-footer">
-                <div class="status-indicator">
-                    <span class="pulse-dot"></span>
-                    <span>System Connected</span>
+            <div class="brand">
+                <i class="fa-solid fa-layer-group brand-icon"></i>
+                <div class="brand-text">
+                    <h1>RAG Engine</h1>
+                    <span>Module M2 Architecture</span>
                 </div>
+            </div>
+
+            <!-- Configuration Selector -->
+            <div class="control-group">
+                <label class="control-label"><i class="fa-solid fa-sliders"></i> Select Use Case</label>
+                <div class="select-wrapper">
+                    <select id="usecase-select">
+                        <!-- Populated by JavaScript -->
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-arrow"></i>
+                </div>
+            </div>
+
+            <!-- Tuning Parameters Panel -->
+            <div class="params-panel">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-wrench"></i> Hyperparameter Tuning</h3>
+                </div>
+                
+                <div class="param-slider-group">
+                    <div class="slider-header">
+                        <label for="max-words">Chunk Size (max_words)</label>
+                        <span id="max-words-val" class="param-val">80</span>
+                    </div>
+                    <input type="range" id="max-words" min="10" max="250" value="80" step="5" class="range-slider">
+                    <span class="range-hint">Splits text into chunks of maximum words.</span>
+                </div>
+
+                <div class="param-slider-group">
+                    <div class="slider-header">
+                        <label for="overlap">Chunk Overlap</label>
+                        <span id="overlap-val" class="param-val">15</span>
+                    </div>
+                    <input type="range" id="overlap" min="0" max="100" value="15" step="1" class="range-slider">
+                    <span class="range-hint">Shared words between consecutive chunks.</span>
+                </div>
+
+                <div class="param-slider-group">
+                    <div class="slider-header">
+                        <label for="top-k">Retrieve Count (Top-K)</label>
+                        <span id="top-k-val" class="param-val">2</span>
+                    </div>
+                    <input type="range" id="top-k" min="1" max="10" value="2" step="1" class="range-slider">
+                    <span class="range-hint">Number of context chunks sent to generator.</span>
+                </div>
+            </div>
+
+            <!-- Custom Document Section -->
+            <div id="custom-doc-panel" class="custom-panel hidden">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-file-arrow-up"></i> Custom Knowledge Document</h3>
+                </div>
+                <div class="input-field">
+                    <label for="custom-persona">Custom System Persona</label>
+                    <input type="text" id="custom-persona" placeholder="e.g. a helpful SQL database admin" value="a helpful assistant">
+                </div>
+                
+                <!-- File Upload Dropzone -->
+                <div class="upload-zone" id="upload-zone">
+                    <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                    <p class="upload-text">Drag & drop or click to upload</p>
+                    <span class="upload-formats">Supports PDF, TXT (resumes, policies)</span>
+                    <input type="file" id="file-upload-input" accept=".pdf,.txt" style="display: none;">
+                </div>
+                <div id="upload-status" class="upload-status-bar hidden">
+                    <!-- Progress / File Info display -->
+                </div>
+
+                <div class="input-field">
+                    <label for="custom-text">Knowledge Source Text</label>
+                    <textarea id="custom-text" placeholder="Or paste custom policy, log file, or document text here..."></textarea>
+                </div>
+            </div>
+
+            <!-- API Status Indicator -->
+            <div class="status-footer">
+                <div class="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span id="status-text">Engine Ready</span>
+                </div>
+                <div class="version-label">v2.1.0-prod</div>
             </div>
         </aside>
 
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Header -->
-            <header class="header">
-                <div class="header-info">
-                    <h1 id="use-case-title">Loading Use Case...</h1>
-                    <p id="use-case-desc" class="text-secondary">Please wait while the configurations load.</p>
-                </div>
-                <div class="persona-tag" id="use-case-persona">
-                    <i data-lucide="bot" class="icon-sm"></i>
-                    <span>Persona: ...</span>
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Header bar -->
+            <header class="workspace-header">
+                <div class="usecase-info">
+                    <h2 id="usecase-title">Loading Use Case...</h2>
+                    <p id="usecase-desc">Connecting to background servers...</p>
                 </div>
             </header>
 
-            <!-- Dashboard Grid -->
-            <div class="dashboard-grid">
-                <!-- Left Panel: Context Document & Chunks -->
-                <section class="panel context-panel">
-                    <div class="panel-header">
-                        <div class="panel-title">
-                            <i data-lucide="file-text" class="icon-md"></i>
-                            <h3>Source Document</h3>
-                        </div>
-                        <button id="toggle-chunks-btn" class="btn btn-secondary btn-sm">
-                            <i data-lucide="layers" class="icon-sm"></i>
-                            <span>View Chunks</span>
+            <!-- Conversation Panel -->
+            <section class="conversation-container">
+                
+                <!-- Query presets suggestions -->
+                <div class="suggestions-section">
+                    <span class="suggestions-label"><i class="fa-solid fa-lightbulb"></i> Try asking:</span>
+                    <div id="queries-container" class="suggestions-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Input area -->
+                <div class="query-box">
+                    <div class="query-input-wrapper">
+                        <i class="fa-solid fa-magnifying-glass query-icon"></i>
+                        <input type="text" id="query-input" placeholder="Type or select a question to ask the RAG engine..." autocomplete="off">
+                        <button id="submit-btn" class="send-btn">
+                            <span>Ask RAG</span>
+                            <i class="fa-solid fa-paper-plane send-icon"></i>
                         </button>
                     </div>
-                    <div class="panel-body">
-                        <!-- Document Display -->
-                        <div id="document-display" class="document-display">
-                            <!-- Loaded dynamically -->
-                        </div>
+                </div>
 
-                        <!-- Upload File Area (Shown for custom_upload only) -->
-                        <div id="upload-container" class="upload-container hidden">
-                            <div class="upload-dropzone" id="upload-dropzone">
-                                <!-- Constant hidden file input -->
-                                <input type="file" id="file-input" accept=".txt" class="hidden">
-                                
-                                <!-- Idle State Panel -->
-                                <div id="upload-idle-state" class="upload-state-content">
-                                    <i data-lucide="upload-cloud" class="upload-icon"></i>
-                                    <p class="upload-title">Drag & Drop file here</p>
-                                    <p class="upload-subtitle">Only plain text (.txt) files are supported</p>
-                                    <span class="or-separator">or</span>
-                                    <button type="button" id="browse-btn" class="btn btn-secondary btn-sm">Browse Files</button>
-                                </div>
-
-                                <!-- Success State Panel -->
-                                <div id="upload-success-state" class="upload-state-content hidden">
-                                    <i data-lucide="file-check" class="upload-icon" style="color: var(--success)"></i>
-                                    <p class="upload-title" style="color: var(--success)">File Loaded Successfully!</p>
-                                    <p id="upload-file-details" class="upload-subtitle">Filename details...</p>
-                                    <button type="button" id="change-file-btn" class="btn btn-secondary btn-sm">Change File</button>
-                                </div>
-                            </div>
-                            <div class="custom-persona-wrapper">
-                                <label for="param-custom-persona">Define AI Persona (System Prompt)</label>
-                                <input type="text" id="param-custom-persona" placeholder="e.g. a patient physics tutor explaining to a freshman" value="a patient and friendly private tutor">
-                            </div>
-                        </div>
-                        
-                        <!-- Chunks Container (Hidden by default, toggled by button) -->
-                        <div id="chunks-display" class="chunks-display hidden">
-                            <div class="chunks-header">
-                                <span id="chunk-count-badge" class="badge">0 Chunks</span>
-                                <p class="text-xs text-secondary">Showing word-based chunks split with sliding overlap.</p>
-                            </div>
-                            <div id="chunks-list" class="chunks-list">
-                                <!-- Loaded dynamically -->
-                            </div>
+                <!-- Response Panel -->
+                <div id="response-card" class="response-card hidden">
+                    <div class="card-header">
+                        <span class="badge"><i class="fa-solid fa-circle-check"></i> Grounded Generation</span>
+                        <div class="card-actions">
+                            <button id="copy-btn" class="action-btn" title="Copy Answer"><i class="fa-regular fa-copy"></i></button>
                         </div>
                     </div>
-                </section>
-
-                <!-- Right Panel: Query & Outputs -->
-                <section class="panel control-panel">
-                    <!-- Advanced Parameters (Collapsible) -->
-                    <div class="settings-section">
-                        <div class="settings-toggle" id="settings-toggle-btn">
-                            <div class="settings-title">
-                                <i data-lucide="sliders" class="icon-sm"></i>
-                                <span>Engine Parameters</span>
-                            </div>
-                            <i data-lucide="chevron-down" class="toggle-arrow" id="settings-arrow"></i>
+                    
+                    <div class="card-body">
+                        <!-- Generated Answer Markdown -->
+                        <div id="answer-content" class="markdown-body">
+                            <!-- Answer text goes here -->
                         </div>
-                        <div class="settings-body hidden" id="settings-body">
-                            <div class="settings-grid">
-                                <div class="setting-item">
-                                    <label for="param-max-words">Chunk Size (Words)</label>
-                                    <input type="number" id="param-max-words" min="10" max="300" value="80">
-                                </div>
-                                <div class="setting-item">
-                                    <label for="param-overlap">Overlap (Words)</label>
-                                    <input type="number" id="param-overlap" min="0" max="150" value="15">
-                                </div>
-                                <div class="setting-item">
-                                    <label for="param-top-k">Retrieve Count (Top-K)</label>
-                                    <input type="number" id="param-top-k" min="1" max="10" value="2">
-                                </div>
+                    </div>
+                </div>
+
+                <!-- Loading State Spinner -->
+                <div id="loading-spinner" class="loading-state hidden">
+                    <div class="spinner-core"></div>
+                    <span>AI Engine thinking & retrieving facts...</span>
+                </div>
+            </section>
+
+            <!-- Diagnostics and Retrievals Tabs -->
+            <section class="diagnostics-section">
+                <div class="tab-headers">
+                    <button class="tab-btn active" data-tab="retrieved-tab">
+                        <i class="fa-solid fa-list-check"></i> Retrieved Chunks (<span id="retrieved-count">0</span>)
+                    </button>
+                    <button class="tab-btn" data-tab="all-chunks-tab">
+                        <i class="fa-solid fa-cubes"></i> Document Index Grid (<span id="total-chunks-count">0</span>)
+                    </button>
+                </div>
+
+                <div class="tab-contents">
+                    <!-- Tab 1: Retrieved Chunks list -->
+                    <div id="retrieved-tab" class="tab-pane active">
+                        <div id="retrieved-list" class="retrieved-grid">
+                            <div class="empty-state">
+                                <i class="fa-regular fa-folder-open"></i>
+                                <p>Submit a query to inspect matched text chunks and cosine similarity scores.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Query Box -->
-                    <div class="query-section">
-                        <div class="panel-title">
-                            <i data-lucide="help-circle" class="icon-md"></i>
-                            <h3>Ask Question</h3>
+                    <!-- Tab 2: Document Index Grid of all segments -->
+                    <div id="all-chunks-tab" class="tab-pane">
+                        <div class="index-grid-info">
+                            <i class="fa-solid fa-info-circle"></i>
+                            <p>Visual map of the document split into sliding chunks. Highlighted items denote retrieved segments.</p>
                         </div>
-                        
-                        <!-- Preloaded Query Pills -->
-                        <div class="query-pills" id="query-pills-list">
-                            <!-- Loaded dynamically -->
-                        </div>
-
-                        <!-- Query Input -->
-                        <div class="query-input-wrapper">
-                            <input type="text" id="query-input" placeholder="Type your query here or select a quick question above..." autocomplete="off">
-                            <button id="run-rag-btn" class="btn btn-primary">
-                                <i data-lucide="play" class="icon-sm"></i>
-                                <span>Run RAG</span>
-                            </button>
+                        <div id="chunks-grid" class="chunks-index-grid">
+                            <!-- All chunk indexes go here -->
                         </div>
                     </div>
-
-                    <!-- Results Output -->
-                    <div class="results-section">
-                        <div class="results-tabs">
-                            <div class="results-tab active" data-tab="answer">Grounded Answer</div>
-                            <div class="results-tab" data-tab="retrieved">Retrieved Chunks</div>
-                        </div>
-                        
-                        <!-- Grounded Answer Tab Content -->
-                        <div class="tab-content active" id="tab-content-answer">
-                            <div class="empty-state" id="answer-empty">
-                                <i data-lucide="message-square" class="icon-lg"></i>
-                                <p>Click "Run RAG" to execute search and ask the grounded assistant.</p>
-                            </div>
-                            <div class="loading-state hidden" id="answer-loading">
-                                <div class="spinner"></div>
-                                <p>Running semantic matching & querying LLM client...</p>
-                            </div>
-                            <div class="answer-display-box hidden" id="answer-display-box">
-                                <div class="answer-body" id="answer-text">
-                                    <!-- Loaded dynamically -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Retrieved Chunks Tab Content -->
-                        <div class="tab-content" id="tab-content-retrieved">
-                            <div class="empty-state" id="retrieved-empty">
-                                <i data-lucide="search" class="icon-lg"></i>
-                                <p>Perform a query search to inspect vector retrieval similarity details.</p>
-                            </div>
-                            <div class="retrieved-chunks-list" id="retrieved-chunks-list">
-                                <!-- Loaded dynamically -->
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </main>
     </div>
 
-    <!-- UI Logic Script -->
+    <!-- Highlight.js for parsing code formatting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- Markdown parsing library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="/static/script.js"></script>
 </body>
 </html>

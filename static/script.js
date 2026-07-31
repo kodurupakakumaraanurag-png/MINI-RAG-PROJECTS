@@ -1,570 +1,376 @@
-// Global Variables
-let useCasesData = {};
-let activeUseCaseId = "";
-let viewingChunks = false;
-let customDocumentText = "";  // Stores the contents of the uploaded text file
+document.addEventListener('DOMContentLoaded', () => {
+    // DOM Elements
+    const usecaseSelect = document.getElementById('usecase-select');
+    const maxWordsInput = document.getElementById('max-words');
+    const maxWordsVal = document.getElementById('max-words-val');
+    const overlapInput = document.getElementById('overlap');
+    const overlapVal = document.getElementById('overlap-val');
+    const topKInput = document.getElementById('top-k');
+    const topKVal = document.getElementById('top-k-val');
+    
+    const customDocPanel = document.getElementById('custom-doc-panel');
+    const customPersona = document.getElementById('custom-persona');
+    const customText = document.getElementById('custom-text');
+    const uploadZone = document.getElementById('upload-zone');
+    const fileUploadInput = document.getElementById('file-upload-input');
+    const uploadStatus = document.getElementById('upload-status');
+    
+    const usecaseTitle = document.getElementById('usecase-title');
+    const usecaseDesc = document.getElementById('usecase-desc');
+    const queriesContainer = document.getElementById('queries-container');
+    const queryInput = document.getElementById('query-input');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    const responseCard = document.getElementById('response-card');
+    const answerContent = document.getElementById('answer-content');
+    const copyBtn = document.getElementById('copy-btn');
+    const loadingSpinner = document.getElementById('loading-spinner');
+    
+    const retrievedList = document.getElementById('retrieved-list');
+    const retrievedCount = document.getElementById('retrieved-count');
+    const totalChunksCount = document.getElementById('total-chunks-count');
+    const chunksGrid = document.getElementById('chunks-grid');
+    
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
 
-// DOM Elements
-const useCasesList = document.getElementById("use-cases-list");
-const useCaseTitle = document.getElementById("use-case-title");
-const useCaseDesc = document.getElementById("use-case-desc");
-const useCasePersona = document.getElementById("use-case-persona");
-const documentDisplay = document.getElementById("document-display");
-const uploadContainer = document.getElementById("upload-container");
-const fileInput = document.getElementById("file-input");
-const uploadDropzone = document.getElementById("upload-dropzone");
-const uploadIdleState = document.getElementById("upload-idle-state");
-const uploadSuccessState = document.getElementById("upload-success-state");
-const uploadFileDetails = document.getElementById("upload-file-details");
-const paramCustomPersona = document.getElementById("param-custom-persona");
+    let usecasesData = {};
+    let activeChunks = [];
 
-const chunksDisplay = document.getElementById("chunks-display");
-const chunksList = document.getElementById("chunks-list");
-const chunkCountBadge = document.getElementById("chunk-count-badge");
-const toggleChunksBtn = document.getElementById("toggle-chunks-btn");
+    // Initialize highlight.js config
+    hljs.configure({ ignoreUnescapedHTML: true });
 
-const settingsToggleBtn = document.getElementById("settings-toggle-btn");
-const settingsBody = document.getElementById("settings-body");
-const settingsArrow = document.getElementById("settings-arrow");
-
-const paramMaxWords = document.getElementById("param-max-words");
-const paramOverlap = document.getElementById("param-overlap");
-const paramTopK = document.getElementById("param-top-k");
-
-const queryInput = document.getElementById("query-input");
-const runRagBtn = document.getElementById("run-rag-btn");
-const queryPillsList = document.getElementById("query-pills-list");
-
-const resultsTabs = document.querySelectorAll(".results-tab");
-const tabContentAnswer = document.getElementById("tab-content-answer");
-const tabContentRetrieved = document.getElementById("tab-content-retrieved");
-
-const answerEmpty = document.getElementById("answer-empty");
-const answerLoading = document.getElementById("answer-loading");
-const answerDisplayBox = document.getElementById("answer-display-box");
-const answerText = document.getElementById("answer-text");
-
-const retrievedEmpty = document.getElementById("retrieved-empty");
-const retrievedChunksList = document.getElementById("retrieved-chunks-list");
-
-// Safe helper for rendering icons in case CDN is blocked or unavailable
-function safeCreateIcons() {
-    try {
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-    } catch (e) {
-        console.warn("Lucide icons failed to render:", e);
-    }
-}
-
-// Initialize Application
-document.addEventListener("DOMContentLoaded", () => {
-    fetchUseCases();
-    setupEventListeners();
-    setupFileUpload();
-});
-
-// Event Listeners
-function setupEventListeners() {
-    // Toggle Chunks vs Document View
-    toggleChunksBtn.addEventListener("click", () => {
-        viewingChunks = !viewingChunks;
-        if (viewingChunks) {
-            documentDisplay.classList.add("hidden");
-            uploadContainer.classList.add("hidden");
-            chunksDisplay.classList.remove("hidden");
-            toggleChunksBtn.querySelector("span").textContent = "View Document";
-            toggleChunksBtn.querySelector("i").setAttribute("data-lucide", "file-text");
-            // Regenerate chunks list in case parameters were altered
-            generateLocalChunks();
-        } else {
-            if (activeUseCaseId === "custom_upload") {
-                uploadContainer.classList.remove("hidden");
-            } else {
-                documentDisplay.classList.remove("hidden");
-            }
-            chunksDisplay.classList.add("hidden");
-            toggleChunksBtn.querySelector("span").textContent = "View Chunks";
-            toggleChunksBtn.querySelector("i").setAttribute("data-lucide", "layers");
-        }
-        safeCreateIcons();
+    // Slider Listeners to update display label values dynamically
+    maxWordsInput.addEventListener('input', (e) => {
+        maxWordsVal.textContent = e.target.value;
+    });
+    overlapInput.addEventListener('input', (e) => {
+        overlapVal.textContent = e.target.value;
+    });
+    topKInput.addEventListener('input', (e) => {
+        topKVal.textContent = e.target.value;
     });
 
-    // Toggle Parameter Settings
-    settingsToggleBtn.addEventListener("click", () => {
-        settingsBody.classList.toggle("hidden");
-        settingsArrow.classList.toggle("rotated");
-    });
-
-    // Run RAG Query
-    runRagBtn.addEventListener("click", executeQuery);
-    queryInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-            executeQuery();
-        }
-    });
-
-    // Results Tab Switching
-    resultsTabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            resultsTabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
+    // Tab switcher logic
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabPanes.forEach(p => p.classList.remove('active'));
             
-            const targetTab = tab.getAttribute("data-tab");
-            if (targetTab === "answer") {
-                tabContentAnswer.classList.add("active");
-                tabContentRetrieved.classList.remove("active");
-            } else {
-                tabContentAnswer.classList.remove("active");
-                tabContentRetrieved.classList.add("active");
-            }
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
         });
     });
-}
 
-// Setup File Upload Interactions
-function setupFileUpload() {
-    const browseBtn = document.getElementById("browse-btn");
-    const changeFileBtn = document.getElementById("change-file-btn");
+    // Fetch and populate use cases from the API
+    async function fetchUsecases() {
+        try {
+            const res = await fetch('/api/usecases');
+            if (!res.ok) throw new Error('Failed to retrieve use cases list');
+            usecasesData = await res.json();
+            
+            // Clear and populate selector dropdown
+            usecaseSelect.innerHTML = '';
+            
+            Object.keys(usecasesData).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = usecasesData[key].title;
+                usecaseSelect.appendChild(option);
+            });
 
-    // Click Browse button triggers file selection
-    if (browseBtn) {
-        browseBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            fileInput.click();
-        });
-    }
+            // Append a Custom RAG option for custom uploads
+            const customOption = document.createElement('option');
+            customOption.value = 'custom_upload';
+            customOption.textContent = '➕ Create Custom RAG Context';
+            usecaseSelect.appendChild(customOption);
 
-    // Click Change File button triggers file selection
-    if (changeFileBtn) {
-        changeFileBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            fileInput.click();
-        });
-    }
-
-    // Click anywhere on dropzone (excluding child buttons) triggers file selection
-    uploadDropzone.addEventListener("click", (e) => {
-        if (e.target !== browseBtn && e.target !== changeFileBtn && e.target !== fileInput) {
-            fileInput.click();
+            // Trigger initial loading update
+            handleUsecaseChange(usecaseSelect.value);
+            
+        } catch (err) {
+            console.error(err);
+            usecaseTitle.textContent = 'Connection Error';
+            usecaseDesc.textContent = 'Could not load configurations from server. Make sure app.py is running.';
         }
-    });
+    }
 
-    // Handle File Browser Select
-    fileInput.addEventListener("change", (e) => {
-        if (e.target.files.length > 0) {
-            handleUploadedFile(e.target.files[0]);
+    // Handles updates when switching configs
+    function handleUsecaseChange(usecaseId) {
+        if (usecaseId === 'custom_upload') {
+            // Show Custom panel, enable edit input fields
+            customDocPanel.classList.remove('hidden');
+            usecaseTitle.textContent = 'Custom Grounded Knowledge Base';
+            usecaseDesc.textContent = 'Upload custom documentation and configure custom system prompt instruction rules.';
+            
+            // Set input defaults
+            maxWordsInput.value = 80;
+            maxWordsVal.textContent = 80;
+            overlapInput.value = 15;
+            overlapVal.textContent = 15;
+            topKInput.value = 2;
+            topKVal.textContent = 2;
+            
+            queriesContainer.innerHTML = '<span class="text-muted" style="font-size: 12px;">No queries predefined. Fill documentation details below and type your query directly.</span>';
+        } else {
+            // Preset configuration
+            customDocPanel.classList.add('hidden');
+            const data = usecasesData[usecaseId];
+            if (!data) return;
+            
+            usecaseTitle.textContent = data.title;
+            usecaseDesc.textContent = data.description;
+            
+            // Set slider values to default values matching specifications
+            maxWordsInput.value = data.default_max_words;
+            maxWordsVal.textContent = data.default_max_words;
+            overlapInput.value = data.default_overlap;
+            overlapVal.textContent = data.default_overlap;
+            topKInput.value = data.default_top_k;
+            topKVal.textContent = data.default_top_k;
+
+            // Render clickable predefined query chips
+            queriesContainer.innerHTML = '';
+            data.queries.forEach(query => {
+                const chip = document.createElement('button');
+                chip.className = 'suggest-btn';
+                chip.textContent = query;
+                chip.addEventListener('click', () => {
+                    queryInput.value = query;
+                    submitQuery();
+                });
+                queriesContainer.appendChild(chip);
+            });
         }
-    });
 
-    // Handle Drag & Drop
-    ['dragenter', 'dragover'].forEach(eventName => {
-        uploadDropzone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            uploadDropzone.classList.add('dragover');
-        }, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        uploadDropzone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            uploadDropzone.classList.remove('dragover');
-        }, false);
-    });
-
-    uploadDropzone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        if (files.length > 0) {
-            handleUploadedFile(files[0]);
-        }
-    });
-}
-
-// Process local text file
-function handleUploadedFile(file) {
-    if (!file.name.endsWith('.txt')) {
-        alert("Only plain text (.txt) files are supported!");
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        customDocumentText = e.target.result;
-        
-        // Hide idle state, show success state
-        const wordCount = customDocumentText.split(/\s+/).filter(w => w.length > 0).length;
-        uploadIdleState.classList.add("hidden");
-        uploadSuccessState.classList.remove("hidden");
-        uploadFileDetails.textContent = `${file.name} (${wordCount} words, ${customDocumentText.length} characters)`;
-        
-        safeCreateIcons();
-
-        // Update local chunks rendering
-        generateLocalChunks();
-    };
-    reader.readAsText(file);
-}
-
-// Fetch Use Cases Config from Server
-async function fetchUseCases() {
-    try {
-        const response = await fetch("/api/usecases");
-        useCasesData = await response.json();
-        renderSidebar();
-        
-        // Select the first use case by default
-        const firstKey = Object.keys(useCasesData)[0];
-        if (firstKey) {
-            selectUseCase(firstKey);
-        }
-    } catch (error) {
-        console.error("Error fetching use cases:", error);
-    }
-}
-
-// Render Use Cases in the Sidebar including custom upload option
-function renderSidebar() {
-    useCasesList.innerHTML = "";
-    
-    // Render standard use cases
-    Object.keys(useCasesData).forEach(key => {
-        const useCase = useCasesData[key];
-        const item = document.createElement("div");
-        item.className = `nav-item ${key === activeUseCaseId ? 'active' : ''}`;
-        item.id = `nav-${key}`;
-        item.innerHTML = `
-            <span class="nav-title">${useCase.title}</span>
-            <span class="nav-desc">${useCase.description}</span>
-        `;
-        item.addEventListener("click", () => selectUseCase(key));
-        useCasesList.appendChild(item);
-    });
-
-    // Add Custom Upload tab at the bottom
-    const customItem = document.createElement("div");
-    customItem.className = `nav-item ${activeUseCaseId === 'custom_upload' ? 'active' : ''}`;
-    customItem.id = "nav-custom_upload";
-    customItem.innerHTML = `
-        <span class="nav-title" style="color: var(--primary)">📁 Custom Document Upload</span>
-        <span class="nav-desc">Upload your own .txt file notes and query them.</span>
-    `;
-    customItem.addEventListener("click", () => selectUseCase("custom_upload"));
-    useCasesList.appendChild(customItem);
-}
-
-// Select Active Use Case
-function selectUseCase(key) {
-    activeUseCaseId = key;
-    
-    // Update active class in sidebar
-    document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
-    document.getElementById(`nav-${key}`).classList.add("active");
-    
-    // Reset view to Document/Upload (not chunks list)
-    viewingChunks = false;
-    chunksDisplay.classList.add("hidden");
-    toggleChunksBtn.querySelector("span").textContent = "View Chunks";
-    toggleChunksBtn.querySelector("i").setAttribute("data-lucide", "layers");
-    
-    if (key === "custom_upload") {
-        // Toggle viewports
-        documentDisplay.classList.add("hidden");
-        uploadContainer.classList.remove("hidden");
-
-        useCaseTitle.textContent = "📁 Custom Document RAG";
-        useCaseDesc.textContent = "Upload your own study notes, policy guides, or textual files (.txt) and query them.";
-        useCasePersona.querySelector("span").textContent = "Persona: Custom AI Assistant";
-
-        // Reset inputs to standard defaults
-        paramMaxWords.value = 80;
-        paramOverlap.value = 15;
-        paramTopK.value = 2;
-
-        renderQueryPills([]); // Clear predefined pills
-        clearOutputs();
-        generateLocalChunks(); // Display count for custom
-    } else {
-        documentDisplay.classList.remove("hidden");
-        uploadContainer.classList.add("hidden");
-
-        const useCase = useCasesData[key];
-        
-        // Update header info
-        useCaseTitle.textContent = useCase.title;
-        useCaseDesc.textContent = useCase.description;
-        useCasePersona.querySelector("span").textContent = `Persona: ${useCase.persona}`;
-        
-        // Update Parameters Inputs
-        paramMaxWords.value = useCase.default_max_words;
-        paramOverlap.value = useCase.default_overlap;
-        paramTopK.value = useCase.default_top_k;
-        
-        // Update Document Display
-        documentDisplay.textContent = useCase.document;
-        
-        // Generate preloaded queries
-        renderQueryPills(useCase.queries);
-        clearOutputs();
-        generateLocalChunks();
-    }
-    
-    safeCreateIcons();
-}
-
-// Generate Preloaded Query Pills
-function renderQueryPills(queries) {
-    queryPillsList.innerHTML = "";
-    queries.forEach(q => {
-        const pill = document.createElement("div");
-        pill.className = "query-pill";
-        pill.textContent = q;
-        pill.addEventListener("click", () => {
-            queryInput.value = q;
-            executeQuery();
-        });
-        queryPillsList.appendChild(pill);
-    });
-}
-
-// Clear Outputs display
-function clearOutputs() {
-    answerText.innerHTML = "";
-    answerDisplayBox.classList.add("hidden");
-    answerEmpty.classList.remove("hidden");
-    answerLoading.classList.add("hidden");
-    
-    retrievedEmpty.classList.remove("hidden");
-    retrievedChunksList.innerHTML = "";
-    
-    // Switch to first tab (Answer)
-    resultsTabs[0].click();
-}
-
-// Generate Chunks locally for the Sidebar/Document info panel
-function generateLocalChunks() {
-    let documentText = "";
-    if (activeUseCaseId === "custom_upload") {
-        documentText = customDocumentText;
-    } else {
-        documentText = useCasesData[activeUseCaseId].document;
-    }
-
-    if (!documentText) {
-        chunkCountBadge.textContent = "0 Chunks";
-        chunksList.innerHTML = `<div class="empty-state"><p>Please upload a text file to preview chunks.</p></div>`;
-        return;
-    }
-    
-    const maxWords = parseInt(paramMaxWords.value) || 80;
-    const overlap = parseInt(paramOverlap.value) || 15;
-    
-    const words = documentText.split(/\s+/).filter(w => w.length > 0);
-    const chunks = [];
-    let i = 0;
-    let chunkIdx = 0;
-    
-    while (i < words.length) {
-        const chunkWords = words.slice(i, i + maxWords);
-        const chunkText = chunkWords.join(" ");
-        chunks.push({
-            index: chunkIdx,
-            text: chunkText
-        });
-        chunkIdx++;
-        
-        const step = Math.max(1, maxWords - overlap);
-        i += step;
-        if (i >= words.length) break;
-    }
-    
-    // Update badge count
-    chunkCountBadge.textContent = `${chunks.length} Chunks`;
-    
-    // Render in lists
-    chunksList.innerHTML = "";
-    chunks.forEach(chunk => {
-        const card = document.createElement("div");
-        card.className = "chunk-card";
-        card.id = `chunk-card-${chunk.index}`;
-        card.innerHTML = `
-            <div class="chunk-card-header">
-                <span>CHUNK ${chunk.index}</span>
+        // Reset response card, diagnostic lists, and mapping grid
+        responseCard.classList.add('hidden');
+        retrievedList.innerHTML = `
+            <div class="empty-state">
+                <i class="fa-regular fa-folder-open"></i>
+                <p>Submit a query to inspect matched text chunks and cosine similarity scores.</p>
             </div>
-            <div class="chunk-card-body">${chunk.text}</div>
         `;
-        chunksList.appendChild(card);
+        retrievedCount.textContent = '0';
+        totalChunksCount.textContent = '0';
+        chunksGrid.innerHTML = '';
+    }
+
+    usecaseSelect.addEventListener('change', (e) => {
+        handleUsecaseChange(e.target.value);
     });
-}
 
-// Execute RAG Query API Call
-async function executeQuery() {
-    const query = queryInput.value.trim();
-    if (!query) return;
-    
-    const maxWords = parseInt(paramMaxWords.value) || 80;
-    const overlap = parseInt(paramOverlap.value) || 15;
-    const topK = parseInt(paramTopK.value) || 2;
+    // Execute query submission
+    async function submitQuery() {
+        const queryText = queryInput.value.trim();
+        if (!queryText) return;
 
-    // Payload variables
-    let payload = {
-        usecase_id: activeUseCaseId,
-        query: query,
-        max_words: maxWords,
-        overlap: overlap,
-        top_k: topK
-    };
+        const usecaseId = usecaseSelect.value;
+        
+        // Disable submit button and clear responses
+        submitBtn.disabled = true;
+        queryInput.disabled = true;
+        loadingSpinner.classList.remove('hidden');
+        responseCard.classList.add('hidden');
 
-    if (activeUseCaseId === "custom_upload") {
-        if (!customDocumentText) {
-            alert("Please upload a .txt notes file before running a query!");
-            return;
+        // Form post payload body
+        const payload = {
+            usecase_id: usecaseId,
+            query: queryText,
+            max_words: parseInt(maxWordsInput.value),
+            overlap: parseInt(overlapInput.value),
+            top_k: parseInt(topKInput.value)
+        };
+
+        if (usecaseId === 'custom_upload') {
+            payload.document = customText.value.trim();
+            payload.persona = customPersona.value.trim();
+            
+            if (!payload.document) {
+                alert('Please input details into the Knowledge Source Text before submitting.');
+                resetFormState();
+                return;
+            }
         }
-        payload.document = customDocumentText;
-        payload.persona = paramCustomPersona.value.trim() || "a helpful assistant";
-    }
-    
-    // Clear outputs, show loader
-    answerEmpty.classList.add("hidden");
-    answerLoading.classList.remove("hidden");
-    answerDisplayBox.classList.add("hidden");
-    
-    retrievedEmpty.classList.add("hidden");
-    retrievedChunksList.innerHTML = "";
-    
-    // Auto switch to Answer Tab
-    resultsTabs[0].click();
-    
-    try {
-        const response = await fetch("/api/query", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-        
-        const data = await response.json();
-        
-        if (data.error) {
-            alert("Error running query: " + data.error);
-            clearOutputs();
-            return;
-        }
-        
-        // Hide loader, show result box
-        answerLoading.classList.add("hidden");
-        answerDisplayBox.classList.remove("hidden");
-        
-        // Format and render Answer Text with Interactive Citations
-        answerText.innerHTML = formatAnswerCitations(data.answer);
-        
-        // Render Retrieved Chunks
-        renderRetrievedChunks(data.retrieved_chunks);
-        
-        // Update chunks visual list details in case parameters changed on server
-        renderAllChunksBadge(data.all_chunks);
-        
-    } catch (error) {
-        console.error("Error executing query:", error);
-        alert("Server communication error.");
-        clearOutputs();
-    }
-}
 
-// Format Citation strings like [Source X] into clickable links
-function formatAnswerCitations(text) {
-    // Regex matches [Source X] where X is an integer
-    return text.replace(/\[Source\s+(\d+)\]/g, (match, index) => {
-        return `<span class="citation-link" onclick="highlightChunkCard(${index})">[Source ${index}]</span>`;
-    });
-}
+        try {
+            const res = await fetch('/api/query', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
 
-// Scroll to and highlight a specific chunk card when citation is clicked
-function highlightChunkCard(index) {
-    // Switch view to chunks panel if not already there
-    if (!viewingChunks) {
-        toggleChunksBtn.click();
-    }
-    
-    // Find the chunk card
-    const card = document.getElementById(`chunk-card-${index}`);
-    if (card) {
-        // Scroll into view
-        card.scrollIntoView({ behavior: "smooth", block: "center" });
-        
-        // Flash animation
-        card.style.borderColor = "var(--primary)";
-        card.style.boxShadow = "0 0 15px var(--primary-glow)";
-        card.style.transform = "scale(1.02)";
-        
-        setTimeout(() => {
-            card.style.borderColor = "var(--border-color)";
-            card.style.boxShadow = "none";
-            card.style.transform = "none";
-        }, 2000);
-    }
-}
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.error || 'Server error processing RAG query');
+            }
 
-// Render Retrieved Chunks in the tab list
-function renderRetrievedChunks(retrievedChunks) {
-    retrievedChunksList.innerHTML = "";
-    
-    if (retrievedChunks.length === 0) {
-        retrievedChunksList.innerHTML = `<div class="empty-state"><p>No chunks retrieved for this query.</p></div>`;
-        return;
-    }
-    
-    retrievedChunks.forEach(ret => {
-        const pctScore = Math.round(ret.score * 100);
-        
-        const card = document.createElement("div");
-        card.className = "retrieved-chunk-card";
-        card.innerHTML = `
-            <div class="retrieved-chunk-meta">
-                <span>CHUNK ${ret.index}</span>
-                <div class="score-visualizer">
-                    <span class="text-xs">Cosine Similarity:</span>
-                    <div class="score-bar-bg">
-                        <div class="score-bar-fill" id="bar-${ret.index}"></div>
+            const data = await res.json();
+            
+            // 1. Render Markdown response
+            // Use marked.parse to render Markdown safely
+            answerContent.innerHTML = marked.parse(data.answer);
+            // Highlight code blocks
+            answerContent.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightElement(el);
+            });
+            responseCard.classList.remove('hidden');
+
+            // 2. Render Retrieved Chunks
+            retrievedList.innerHTML = '';
+            retrievedCount.textContent = data.retrieved_chunks.length;
+            
+            if (data.retrieved_chunks.length === 0) {
+                retrievedList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <p>No document chunks were retrieved. Check if document content is empty.</p>
                     </div>
-                    <span class="score-val">${ret.score.toFixed(4)}</span>
-                </div>
-            </div>
-            <div class="retrieved-chunk-text">${ret.text}</div>
-        `;
-        
-        retrievedChunksList.appendChild(card);
-        
-        // Trigger fill animation asynchronously
-        setTimeout(() => {
-            const fillBar = document.getElementById(`bar-${ret.index}`);
-            if (fillBar) {
-                fillBar.style.width = `${Math.max(0, pctScore)}%`;
-            }
-        }, 100);
-    });
-}
+                `;
+            } else {
+                data.retrieved_chunks.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'chunk-card';
+                    
+                    // Determine similarity class based on Cosine Similarity score
+                    let scoreClass = 'low';
+                    if (item.score >= 0.35) {
+                        scoreClass = 'high';
+                    } else if (item.score >= 0.15) {
+                        scoreClass = 'mid';
+                    }
 
-// Render All Chunks badge and updates standard listing if needed
-function renderAllChunksBadge(allChunks) {
-    chunkCountBadge.textContent = `${allChunks.length} Chunks`;
+                    card.innerHTML = `
+                        <div class="chunk-header">
+                            <span class="chunk-source"><i class="fa-solid fa-cube"></i> Chunk [Source ${item.index}]</span>
+                            <span class="similarity-badge ${scoreClass}">Similarity: ${item.score.toFixed(4)}</span>
+                        </div>
+                        <div class="chunk-text">${item.text}</div>
+                    `;
+                    retrievedList.appendChild(card);
+                });
+            }
+
+            // 3. Render Document Index Grid
+            totalChunksCount.textContent = data.all_chunks.length;
+            chunksGrid.innerHTML = '';
+            
+            // Map retrieved chunk indices to sets for quick lookup
+            const retrievedIndices = new Set(data.retrieved_chunks.map(ch => ch.index));
+
+            data.all_chunks.forEach(chunk => {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.textContent = chunk.index;
+                
+                if (retrievedIndices.has(chunk.index)) {
+                    cell.classList.add('retrieved');
+                }
+                
+                // Show tooltip with slice of text content on hover
+                cell.title = `Chunk ${chunk.index}: "${chunk.text.substring(0, 120)}..."`;
+                
+                // Click cell to populate query/inspect text
+                cell.addEventListener('click', () => {
+                    alert(`Chunk ${chunk.index} Text Content:\n\n${chunk.text}`);
+                });
+                
+                chunksGrid.appendChild(cell);
+            });
+
+        } catch (err) {
+            console.error(err);
+            alert(`Error: ${err.message}`);
+        } finally {
+            resetFormState();
+        }
+    }
+
+    function resetFormState() {
+        submitBtn.disabled = false;
+        queryInput.disabled = false;
+        loadingSpinner.classList.add('hidden');
+    }
+
+    submitBtn.addEventListener('click', submitQuery);
     
-    // Re-fill local list in case parameters were altered on server
-    chunksList.innerHTML = "";
-    allChunks.forEach(chunk => {
-        const card = document.createElement("div");
-        card.className = "chunk-card";
-        card.id = `chunk-card-${chunk.index}`;
-        card.innerHTML = `
-            <div class="chunk-card-header">
-                <span>CHUNK ${chunk.index}</span>
-            </div>
-            <div class="chunk-card-body">${chunk.text}</div>
-        `;
-        chunksList.appendChild(card);
+    queryInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') submitQuery();
     });
-}
+
+    // Copy to clipboard function
+    copyBtn.addEventListener('click', () => {
+        const text = answerContent.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const origIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--success);"></i>';
+            setTimeout(() => {
+                copyBtn.innerHTML = origIcon;
+            }, 1800);
+        }).catch(err => {
+            console.error('Clipboard copy failed:', err);
+        });
+    });
+
+    // Drag & Drop Event Listeners for File Upload
+    uploadZone.addEventListener('click', () => fileUploadInput.click());
+
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+        uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file) handleFile(file);
+    });
+
+    fileUploadInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleFile(file);
+    });
+
+    async function handleFile(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        uploadStatus.classList.remove('hidden');
+        uploadStatus.className = 'upload-status-bar loading';
+        uploadStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading and extracting text...';
+
+        try {
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                throw new Error(data.error || 'Failed to extract text from file');
+            }
+
+            const data = await res.json();
+            
+            // Populate text to textarea
+            customText.value = data.text;
+            
+            // Render success message
+            uploadStatus.className = 'upload-status-bar';
+            uploadStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Loaded <strong>${data.filename}</strong> successfully (${data.word_count} words)`;
+            
+        } catch (err) {
+            console.error(err);
+            uploadStatus.className = 'upload-status-bar error';
+            uploadStatus.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${err.message}`;
+        }
+    }
+
+    // Initial Fetch call on startup
+    fetchUsecases();
+});
