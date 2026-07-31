@@ -253,6 +253,8 @@ def query_rag():
     overlap = int(data.get("overlap", default_overlap))
     top_k = int(data.get("top_k", default_top_k))
     
+    strict_grounding = data.get("strict_grounding", True)
+    
     # Initialize engine with params
     engine = RAGEngine(max_words=max_words, overlap=overlap, top_k=top_k)
     
@@ -263,7 +265,7 @@ def query_rag():
     retrieved = engine.retrieve(query, all_chunks)
     
     # Get answer
-    answer = engine.ask(query, retrieved, persona=persona)
+    answer = engine.ask(query, retrieved, persona=persona, strict_grounding=strict_grounding)
     
     # Format response
     formatted_retrieved = []

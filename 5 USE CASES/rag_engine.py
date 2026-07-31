@@ -266,7 +266,7 @@ class RAGEngine:
         }
         return clean in greetings or any(clean == g for g in greetings) or clean.startswith("hi ") or clean.startswith("hello ") or clean.startswith("hey ")
 
-    def ask(self, query, top_k=3):
+    def ask(self, query, top_k=3, strict_grounding=True):
         """Retrieves contexts, queries Claude/Gemini/OpenAI with grounding constraints, and renders styled output."""
         is_greet = self._is_greeting(query)
         
@@ -287,7 +287,7 @@ class RAGEngine:
                     "Respond politely and introduce yourself as your persona, inviting them to ask questions about your documents. Keep it short."
                 )
                 system_instr = f"You are {self.persona}. Respond politely to the user greeting or chitchat. Keep it brief and friendly."
-            else:
+            elif strict_grounding:
                 prompt = (
                     f"You are {self.persona}.\n\n"
                     "RULES FOR ANSWERING:\n"
@@ -301,6 +301,18 @@ class RAGEngine:
                     "Answer:"
                 )
                 system_instr = f"You are {self.persona}. You are a grounded QA assistant. Answer only from the provided context. If the answer is not present, say that you don't know."
+            else:
+                prompt = (
+                    f"You are {self.persona}.\n\n"
+                    "Answer the User Query. If relevant facts are present in the Context section below, use them and cite them using bracket labels (e.g. [resume.pdf]). "
+                    "If the Context does not contain the answer, you must use your pre-trained general knowledge to answer the query accurately like a normal AI. "
+                    "Do not use bracket citations if the information comes from your own pre-trained knowledge.\n\n"
+                    "Context:\n"
+                    f"{context_str}\n"
+                    f"User Query: {query}\n\n"
+                    "Answer:"
+                )
+                system_instr = f"You are {self.persona}. Prioritize context facts and use citations if context has the answer; otherwise, use your general knowledge to answer the user query."
             
             response_text = ""
             if self.gemini_key:

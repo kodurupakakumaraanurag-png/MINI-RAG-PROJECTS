@@ -184,12 +184,14 @@ document.addEventListener('DOMContentLoaded', () => {
         responseCard.classList.add('hidden');
 
         // Form post payload body
+        const strictGroundingEl = document.getElementById('strict-grounding');
         const payload = {
             usecase_id: usecaseId,
             query: queryText,
             max_words: parseInt(maxWordsInput.value),
             overlap: parseInt(overlapInput.value),
-            top_k: parseInt(topKInput.value)
+            top_k: parseInt(topKInput.value),
+            strict_grounding: strictGroundingEl ? strictGroundingEl.checked : true
         };
 
         const docText = customText.value.trim();

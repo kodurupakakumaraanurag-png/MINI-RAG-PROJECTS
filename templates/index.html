@@ -72,6 +72,11 @@
                     <input type="range" id="top-k" min="1" max="10" value="2" step="1" class="range-slider">
                     <span class="range-hint">Number of context chunks sent to generator.</span>
                 </div>
+
+                <div class="control-group-row" style="margin-top: 8px; display: flex; flex-direction: row; align-items: center; gap: 8px;">
+                    <input type="checkbox" id="strict-grounding" checked style="width: auto; cursor: pointer;">
+                    <label for="strict-grounding" style="font-size: 11px; font-weight: 600; cursor: pointer; color: var(--text-secondary); text-transform: uppercase;">Strict RAG Grounding</label>
+                </div>
             </div>
 
             <!-- Custom Document Section -->

@@ -84,13 +84,13 @@ class RAGEngine:
         }
         return clean in greetings or any(clean == g for g in greetings) or clean.startswith("hi ") or clean.startswith("hello ") or clean.startswith("hey ")
 
-    def ask(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str = None) -> str:
+    def ask(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str = None, strict_grounding: bool = True) -> str:
         """Generates grounded response using Anthropic or OpenAI API, with a local heuristic fallback."""
         persona_str = persona or "a helpful RAG assistant"
         is_greet = self._is_greeting(query)
 
-        # Enforce strict grounding: if retrieval score is zero, assume missing info, unless it is a greeting/chitchat
-        if not is_greet:
+        # Enforce strict grounding: if retrieval score is zero, assume missing info, unless it is a greeting/chitchat or strict grounding is disabled
+        if not is_greet and strict_grounding:
             if not retrieved_chunks or all(score == 0.0 for _, score in retrieved_chunks):
                 return "I don't have that information"
             
@@ -106,7 +106,7 @@ class RAGEngine:
                 "Respond politely and introduce yourself as your persona, inviting them to ask questions about your documents. Keep it short."
             )
             system_instr = f"You are {persona_str}. Respond politely to the user greeting or chitchat. Keep it brief and friendly."
-        else:
+        elif strict_grounding:
             prompt = (
                 f"You are {persona_str}.\n\n"
                 "RULES FOR ANSWERING:\n"
@@ -120,6 +120,18 @@ class RAGEngine:
                 "Answer:"
             )
             system_instr = f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information"
+        else:
+            prompt = (
+                f"You are {persona_str}.\n\n"
+                "Answer the User Query. If relevant facts are present in the Context section below, use them and cite them using bracket labels (e.g. [Source 0]). "
+                "If the Context does not contain the answer, you must use your pre-trained general knowledge to answer the query accurately like a normal AI. "
+                "Do not use bracket citations if the information comes from your own pre-trained knowledge.\n\n"
+                "Context:\n"
+                f"{context_str}\n"
+                f"User Query: {query}\n\n"
+                "Answer:"
+            )
+            system_instr = f"You are {persona_str}. Prioritize context facts and use citations if context has the answer; otherwise, use your general knowledge to answer the user query."
         
         # Detect API keys
         gemini_key = os.getenv("GEMINI_API_KEY")
@@ -166,7 +178,7 @@ class RAGEngine:
             except Exception:
                 if is_greet:
                     return f"Hello! As {persona_str}, how can I help you today?"
-                return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+                return self._heuristic_fallback(query, retrieved_chunks, persona_str, strict_grounding)
                 
         elif anthropic_key and anthropic_key.startswith("sk-ant-"):
             # Anthropic Claude 3.5 Sonnet
@@ -185,7 +197,7 @@ class RAGEngine:
             except Exception:
                 if is_greet:
                     return f"Hello! As {persona_str}, how can I help you today?"
-                return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+                return self._heuristic_fallback(query, retrieved_chunks, persona_str, strict_grounding)
         elif openai_key:
             # OpenAI GPT-4o (handles sk-proj- or standard sk- keys)
             try:
@@ -203,13 +215,13 @@ class RAGEngine:
             except Exception:
                 if is_greet:
                     return f"Hello! As {persona_str}, how can I help you today?"
-                return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+                return self._heuristic_fallback(query, retrieved_chunks, persona_str, strict_grounding)
         else:
             if is_greet:
                 return f"Hello! As {persona_str}, how can I help you today?"
-            return self._heuristic_fallback(query, retrieved_chunks, persona_str)
+            return self._heuristic_fallback(query, retrieved_chunks, persona_str, strict_grounding)
 
-    def _heuristic_fallback(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str) -> str:
+    def _heuristic_fallback(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str, strict_grounding: bool = True) -> str:
         """Determins a fallback response programmatically by extracting sentences containing search query keywords."""
         keywords = [w.lower().strip(",.?!()\"'") for w in query.split()]
         stop_words = {"what", "is", "the", "of", "and", "a", "to", "in", "for", "on", "with", "at", "by", "an", "this", "that", "how", "why", "who", "where", "can", "could", "would", "should", "will", "do", "does", "did"}
@@ -234,6 +246,8 @@ class RAGEngine:
         sentences_found.sort(key=lambda x: (-x["matches"], -x["score"]))
         
         if not sentences_found:
+            if not strict_grounding:
+                return f"I'm sorry, I couldn't find a direct answer in the document, and the AI model is currently offline. Please try again."
             return "I don't have that information"
             
         selected_lines = []
