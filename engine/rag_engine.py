@@ -113,25 +113,27 @@ class RAGEngine:
                 "1. Answer the User Query ONLY using the facts present in the Context section below.\n"
                 "2. Do NOT use outside knowledge, extrapolate, or assume facts not explicitly mentioned.\n"
                 "3. If the Context does not contain the answer, you must return exactly the string: \"I don't have that information\" and nothing else.\n"
-                "4. Cite your facts by referencing the source label in brackets (e.g., [Source 0], [Source 1], etc.) inline whenever citing a fact.\n\n"
+                "4. Cite your facts by referencing the source label in brackets (e.g., [Source 0], [Source 1], etc.) inline whenever citing a fact.\n"
+                "5. FORMATTING: Format lists cleanly using standard markdown (e.g. * or - for bullet points, 1. 2. for numbered lists). Never output literal characters like 'o' or custom shapes as bullet points. Do not leave blank lines between numbered list headers and their sub-bullets.\n\n"
                 "Context:\n"
                 f"{context_str}\n"
                 f"User Query: {query}\n\n"
                 "Answer:"
             )
-            system_instr = f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information"
+            system_instr = f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information. Format markdown lists cleanly using standard '*' or '-' bullets, avoiding raw text characters like 'o'."
         else:
             prompt = (
                 f"You are {persona_str}.\n\n"
                 "Answer the User Query. If relevant facts are present in the Context section below, use them and cite them using bracket labels (e.g. [Source 0]). "
                 "If the Context does not contain the answer, you must use your pre-trained general knowledge to answer the query accurately like a normal AI. "
-                "Do not use bracket citations if the information comes from your own pre-trained knowledge.\n\n"
+                "Do not use bracket citations if the information comes from your own pre-trained knowledge.\n"
+                "FORMATTING: Format lists cleanly using standard markdown (e.g. * or - for bullet points, 1. 2. for numbered lists). Never output literal characters like 'o' or custom shapes as bullet points. Do not leave blank lines between numbered list headers and their sub-bullets.\n\n"
                 "Context:\n"
                 f"{context_str}\n"
                 f"User Query: {query}\n\n"
                 "Answer:"
             )
-            system_instr = f"You are {persona_str}. Prioritize context facts and use citations if context has the answer; otherwise, use your general knowledge to answer the user query."
+            system_instr = f"You are {persona_str}. Prioritize context facts and use citations if context has the answer; otherwise, use your general knowledge to answer the user query. Format markdown lists cleanly using standard '*' or '-' bullets, avoiding raw text characters like 'o'."
         
         # Detect API keys
         gemini_key = os.getenv("GEMINI_API_KEY")

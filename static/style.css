@@ -1068,4 +1068,43 @@ select:focus {
     background: #c3b8a1 !important;
 }
 
+/* Clean Markdown List Indents & Bullets Override */
+.markdown-body ul, 
+.markdown-body ol {
+    padding-left: 28px !important;
+    margin-top: 10px !important;
+    margin-bottom: 16px !important;
+    list-style-position: outside !important;
+}
+
+.markdown-body ul {
+    list-style-type: disc !important;
+}
+
+.markdown-body ol {
+    list-style-type: decimal !important;
+}
+
+.markdown-body li {
+    margin-bottom: 8px !important;
+    line-height: 1.7 !important;
+    display: list-item !important;
+    padding-left: 4px !important;
+}
+
+.markdown-body li > ul,
+.markdown-body li > ol {
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    padding-left: 24px !important;
+}
+
+.markdown-body ul ul {
+    list-style-type: circle !important;
+}
+
+.markdown-body ol ol {
+    list-style-type: lower-alpha !important;
+}
+
 
