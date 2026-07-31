@@ -219,6 +219,8 @@ def query_rag():
     usecase_id = data.get("usecase_id")
     query = data.get("query")
     
+    strict_grounding = data.get("strict_grounding", True)
+    
     if not usecase_id or not query:
         return jsonify({"error": "Missing usecase_id or query"}), 400
         
@@ -231,7 +233,10 @@ def query_rag():
         default_top_k = 2
         
         if not document_text:
-            return jsonify({"error": "No document text provided for custom RAG"}), 400
+            if strict_grounding:
+                return jsonify({"error": "No document text provided for custom RAG"}), 400
+            else:
+                document_text = "No document provided. Answer purely from general knowledge."
     else:
         usecase = USE_CASES.get(usecase_id)
         if not usecase:
@@ -252,8 +257,6 @@ def query_rag():
     max_words = int(data.get("max_words", default_max_words))
     overlap = int(data.get("overlap", default_overlap))
     top_k = int(data.get("top_k", default_top_k))
-    
-    strict_grounding = data.get("strict_grounding", True)
     
     # Initialize engine with params
     engine = RAGEngine(max_words=max_words, overlap=overlap, top_k=top_k)

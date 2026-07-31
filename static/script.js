@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (usecaseId === 'custom_upload') {
             payload.persona = customPersona.value.trim();
             
-            if (!payload.document) {
+            if (payload.strict_grounding && !payload.document) {
                 alert('Please input details into the Knowledge Source Text before submitting.');
                 resetFormState();
                 return;
