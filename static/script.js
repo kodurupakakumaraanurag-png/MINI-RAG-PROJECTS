@@ -21,10 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const queryInput = document.getElementById('query-input');
     const submitBtn = document.getElementById('submit-btn');
     
-    const responseCard = document.getElementById('response-card');
-    const answerContent = document.getElementById('answer-content');
-    const copyBtn = document.getElementById('copy-btn');
-    const loadingSpinner = document.getElementById('loading-spinner');
+    const chatHistory = document.getElementById('chat-history');
     
     const retrievedList = document.getElementById('retrieved-list');
     const retrievedCount = document.getElementById('retrieved-count');
@@ -153,8 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Reset response card, diagnostic lists, and mapping grid
-        responseCard.classList.add('hidden');
+        // Reset chat history feed, diagnostic lists, and mapping grid
+        chatHistory.innerHTML = `
+            <div class="chat-placeholder">
+                <i class="fa-regular fa-comments chat-placeholder-icon"></i>
+                <h3>RAG Chat Assistant</h3>
+                <p>Ask a question about the active document. Uncheck <strong>Strict RAG Grounding</strong> in the sidebar to query Gemini's general knowledge.</p>
+            </div>
+        `;
         retrievedList.innerHTML = `
             <div class="empty-state">
                 <i class="fa-regular fa-folder-open"></i>
@@ -177,11 +180,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const usecaseId = usecaseSelect.value;
         
-        // Disable submit button and clear responses
+        // Remove placeholder if present
+        const placeholder = chatHistory.querySelector('.chat-placeholder');
+        if (placeholder) {
+            placeholder.remove();
+        }
+
+        // 1. Append User Bubble
+        const userBubble = document.createElement('div');
+        userBubble.className = 'chat-message user';
+        userBubble.innerHTML = `<div class="message-content"></div>`;
+        userBubble.querySelector('.message-content').textContent = queryText;
+        chatHistory.appendChild(userBubble);
+        
+        // 2. Append Typing Bubble
+        const botTyping = document.createElement('div');
+        botTyping.className = 'chat-message bot typing';
+        botTyping.id = 'bot-typing-indicator';
+        botTyping.innerHTML = `
+            <div class="message-content">
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        `;
+        chatHistory.appendChild(botTyping);
+        
+        // Scroll to bottom
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+
+        // Disable input during request
         submitBtn.disabled = true;
         queryInput.disabled = true;
-        loadingSpinner.classList.remove('hidden');
-        responseCard.classList.add('hidden');
 
         // Form post payload body
         const strictGroundingEl = document.getElementById('strict-grounding');
@@ -204,6 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (payload.strict_grounding && !payload.document) {
                 alert('Please input details into the Knowledge Source Text before submitting.');
+                
+                // Cleanup typing and return
+                botTyping.remove();
                 resetFormState();
                 return;
             }
@@ -216,6 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(payload)
             });
 
+            // Remove typing bubble
+            botTyping.remove();
+
             if (!res.ok) {
                 const errData = await res.json();
                 throw new Error(errData.error || 'Server error processing RAG query');
@@ -223,16 +261,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await res.json();
             
-            // 1. Render Markdown response
-            // Use marked.parse to render Markdown safely
-            answerContent.innerHTML = marked.parse(data.answer);
-            // Highlight code blocks
-            answerContent.querySelectorAll('pre code').forEach((el) => {
+            // 3. Append Bot Bubble
+            const botBubble = document.createElement('div');
+            botBubble.className = 'chat-message bot';
+            
+            const badgeHtml = data.strict_grounding ? 
+                `<span class="message-badge"><i class="fa-solid fa-circle-check"></i> Grounded Generation</span>` : 
+                `<span class="message-badge info"><i class="fa-solid fa-brain"></i> General Generation</span>`;
+            
+            botBubble.innerHTML = `
+                <div class="card-header-simple">
+                    ${badgeHtml}
+                    <button class="copy-msg-btn" title="Copy Answer"><i class="fa-regular fa-copy"></i></button>
+                </div>
+                <div class="message-content markdown-body"></div>
+            `;
+            
+            // Parse Markdown safely
+            botBubble.querySelector('.message-content').innerHTML = marked.parse(data.answer);
+            
+            // Highlight code blocks inside message bubble
+            botBubble.querySelectorAll('pre code').forEach((el) => {
                 hljs.highlightElement(el);
             });
-            responseCard.classList.remove('hidden');
-
-            // 2. Render Retrieved Chunks
+            
+            // Bind copy button listener dynamically to the bubble
+            const msgCopyBtn = botBubble.querySelector('.copy-msg-btn');
+            const msgContentEl = botBubble.querySelector('.message-content');
+            msgCopyBtn.addEventListener('click', () => {
+                const text = msgContentEl.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    const origIcon = msgCopyBtn.innerHTML;
+                    msgCopyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--success);"></i>';
+                    setTimeout(() => {
+                        msgCopyBtn.innerHTML = origIcon;
+                    }, 1800);
+                }).catch(err => {
+                    console.error('Clipboard copy failed:', err);
+                });
+            });
+            
+            chatHistory.appendChild(botBubble);
+            
+            // 4. Render Retrieved Chunks (latest query)
             retrievedList.innerHTML = '';
             retrievedCount.textContent = data.retrieved_chunks.length;
             
@@ -248,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const card = document.createElement('div');
                     card.className = 'chunk-card';
                     
-                    // Determine similarity class based on Cosine Similarity score
                     let scoreClass = 'low';
                     if (item.score >= 0.35) {
                         scoreClass = 'high';
@@ -267,11 +337,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // 3. Render Document Index Grid
+            // 5. Render Document Index Grid
             totalChunksCount.textContent = data.all_chunks.length;
             chunksGrid.innerHTML = '';
             
-            // Map retrieved chunk indices to sets for quick lookup
             const retrievedIndices = new Set(data.retrieved_chunks.map(ch => ch.index));
 
             data.all_chunks.forEach(chunk => {
@@ -283,10 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     cell.classList.add('retrieved');
                 }
                 
-                // Show tooltip with slice of text content on hover
                 cell.title = `Chunk ${chunk.index}: "${chunk.text.substring(0, 120)}..."`;
-                
-                // Click cell to populate query/inspect text
                 cell.addEventListener('click', () => {
                     alert(`Chunk ${chunk.index} Text Content:\n\n${chunk.text}`);
                 });
@@ -296,16 +362,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error(err);
-            alert(`Error: ${err.message}`);
+            
+            // Remove typing bubble if still present
+            const currentTyping = chatHistory.querySelector('#bot-typing-indicator');
+            if (currentTyping) currentTyping.remove();
+
+            // Append Error Bubble
+            const botErrorBubble = document.createElement('div');
+            botErrorBubble.className = 'chat-message bot error-msg';
+            botErrorBubble.innerHTML = `
+                <div class="card-header-simple">
+                    <span class="message-badge danger"><i class="fa-solid fa-circle-xmark"></i> Query Error</span>
+                </div>
+                <div class="message-content">Error: ${err.message}</div>
+            `;
+            chatHistory.appendChild(botErrorBubble);
         } finally {
             resetFormState();
+            // Scroll to bottom after layout calculations
+            setTimeout(() => {
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }, 50);
         }
     }
 
     function resetFormState() {
         submitBtn.disabled = false;
         queryInput.disabled = false;
-        loadingSpinner.classList.add('hidden');
+        queryInput.value = ''; // Reset user typing line for next message
+        queryInput.focus();
     }
 
     submitBtn.addEventListener('click', submitQuery);
@@ -314,19 +399,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') submitQuery();
     });
 
-    // Copy to clipboard function
-    copyBtn.addEventListener('click', () => {
-        const text = answerContent.innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            const origIcon = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--success);"></i>';
-            setTimeout(() => {
-                copyBtn.innerHTML = origIcon;
-            }, 1800);
-        }).catch(err => {
-            console.error('Clipboard copy failed:', err);
-        });
-    });
 
     // Drag & Drop Event Listeners for File Upload
     uploadZone.addEventListener('click', () => fileUploadInput.click());

@@ -899,44 +899,63 @@ select:focus {
 }
 
 /* ==========================================
-   CLASSIC EDITORIAL & TYPOGRAPHY OVERRIDES
+   MODERN HIGH-CONTRAST DARK SPACE GLASSMORPHISM
    ========================================== */
 
-/* Remove Neon Glow Blurs from background */
-.app-background::before,
-.app-background::after {
-    display: none !important;
-}
-
-/* Serif Headings & Classic Font Stack */
-h1, h2, h3, h4, h5, h6,
-.brand-text h1,
-#usecase-title,
-.panel-header h3 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 700;
-    color: var(--accent-violet) !important;
-}
-
-#usecase-title {
-    font-weight: 800;
+:root {
+    --bg-dark: #090d16;             /* Sleek Space Dark */
+    --sidebar-bg: #0f1420;          /* Deep Tech Blue-Grey */
+    --workspace-bg: #0b0f19;        /* Dark Space Workspace */
+    --card-bg: rgba(22, 28, 45, 0.6); /* Sleek Glass Card */
+    
+    --accent-blue: #00f2fe;         /* Bright Electric Cyan */
+    --accent-violet: #9b51e0;       /* Neon Violet */
+    --accent-gradient: linear-gradient(135deg, #0072ff 0%, #00f2fe 100%);
+    --gradient-purple: linear-gradient(135deg, #111827 0%, #1e1b4b 100%);
+    
+    --text-primary: #f3f4f6;        /* Bright Off-White */
+    --text-secondary: #9ca3af;      /* Muted Silver */
+    --text-muted: #4b5563;          /* Dark Cool Muted */
+    --border-color: rgba(255, 255, 255, 0.08); /* Translucent White */
+    --border-highlight: #00f2fe;   /* Cyan highlight */
+    
+    --success: #10b981;             /* Vibrant Emerald */
+    --warning: #f59e0b;             /* Vibrant Amber */
+    --error: #ef4444;               /* Vibrant Crimson */
 }
 
 /* Base Body Elements */
 body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
+    font-family: 'Inter', -apple-system, sans-serif;
 }
 
-/* Input Fields & Textareas Refinement (Light Classic Look) */
+/* Restore Background Blurs */
+.app-background::before,
+.app-background::after {
+    display: block !important;
+}
+
+/* Clean up Headers to modern Sans-Serif */
+h1, h2, h3, h4, h5, h6,
+.brand-text h1,
+#usecase-title,
+.panel-header h3 {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar Inputs and Selects (Modern Dark Slate) */
 input[type="text"],
 textarea,
 select {
-    background-color: #ffffff !important;
-    color: var(--text-primary) !important;
-    border: 1px solid var(--border-color) !important;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-    border-radius: 4px !important;
+    background-color: #121824 !important;
+    color: #f3f4f6 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
     font-family: 'Inter', sans-serif;
 }
 
@@ -944,114 +963,95 @@ input[type="text"]:focus,
 textarea:focus,
 select:focus {
     border-color: var(--accent-blue) !important;
-    box-shadow: 0 0 0 2px rgba(188, 156, 108, 0.15), inset 0 1px 3px rgba(0, 0, 0, 0.05) !important;
-    outline: none;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.25) !important;
 }
 
-/* Cards & Panels - Solid borders and clean shadows instead of futuristic glows */
+/* Custom panels and elements - Transparent glass style */
 .params-panel,
 .custom-panel,
 .response-card,
 .chunk-card {
     background-color: var(--card-bg) !important;
     border: 1px solid var(--border-color) !important;
-    border-radius: 4px !important;
-    box-shadow: 0 4px 20px rgba(46, 64, 87, 0.04), 0 1px 3px rgba(46, 64, 87, 0.02) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
 }
 
-/* Predefined chips/suggestions */
+/* Predefined Suggestion Chips */
 .suggest-btn {
-    background: #ffffff !important;
-    border: 1px solid var(--border-color) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     color: var(--text-secondary) !important;
     border-radius: 20px !important;
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
     padding: 6px 14px;
     transition: all 0.2s ease;
 }
 
 .suggest-btn:hover {
-    background: var(--sidebar-bg) !important;
-    border-color: var(--accent-blue) !important;
-    color: var(--text-primary) !important;
+    background: rgba(0, 242, 254, 0.08) !important;
+    border-color: rgba(0, 242, 254, 0.3) !important;
+    color: #ffffff !important;
     transform: translateY(-1px);
 }
 
-/* Slider Customizations (Classic Slate styling) */
+/* Sliders Overrides (Vibrant Cyber styling) */
 .range-slider {
-    background: #e5dfd0 !important;
-    height: 4px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    height: 6px !important;
+    border-radius: 3px !important;
 }
 
 .range-slider::-webkit-slider-thumb {
     background: var(--accent-blue) !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
-    border: 1px solid #ffffff !important;
+    box-shadow: 0 0 8px rgba(0, 242, 254, 0.6) !important;
+    border: none !important;
     width: 14px !important;
     height: 14px !important;
 }
 
-/* Markdown Answer Body - Lora serif is highly readable for answers */
-.markdown-body {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 15px;
-    line-height: 1.75;
-    color: #1a1b1e !important;
-}
-
-.markdown-body p, 
-.markdown-body li {
-    margin-bottom: 0.8em;
-}
-
-/* Grid Cell overrides */
+/* Grid Cells (Document grid) */
 .grid-cell {
-    border-radius: 4px !important;
-    background: #e5dfd0 !important;
-    border: 1px solid var(--border-color) !important;
+    border-radius: 6px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
     color: var(--text-secondary) !important;
 }
 
 .grid-cell.retrieved {
-    background: var(--accent-blue) !important;
-    color: #ffffff !important;
-    border-color: var(--accent-blue) !important;
+    background: var(--accent-gradient) !important;
+    color: #000000 !important;
+    border-color: transparent !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.3) !important;
 }
 
-/* Upload zone override */
+/* Drag & Drop Upload Zone */
 .upload-zone {
-    border: 2px dashed #b39265 !important;
-    background: #faf8f5 !important;
-    border-radius: 4px !important;
+    border: 2px dashed rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
 }
 
 .upload-zone:hover,
 .upload-zone.dragover {
-    background: #f4eee1 !important;
-    border-color: var(--accent-violet) !important;
+    background: rgba(0, 242, 254, 0.04) !important;
+    border-color: var(--accent-blue) !important;
 }
 
-.upload-icon {
-    color: var(--accent-blue) !important;
-}
-
-/* Send Button overrides */
+/* Send/Submit Button */
 .send-btn {
-    border-radius: 4px !important;
+    border-radius: 8px !important;
     background: var(--accent-gradient) !important;
-    color: #ffffff !important;
-    font-weight: 600;
+    color: #000000 !important;
+    font-weight: 700 !important;
 }
 
 .send-btn:hover {
-    box-shadow: 0 4px 15px rgba(43, 58, 74, 0.25) !important;
-}
-
-/* Spinner override */
-.spinner-core {
-    border: 3px solid #e5dfd0 !important;
-    border-top: 3px solid var(--accent-blue) !important;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.5) !important;
 }
 
 /* Scrollbar override */
@@ -1060,51 +1060,231 @@ select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #e2d7c0 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #c3b8a1 !important;
+    background: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Clean Markdown List Indents & Bullets Override */
+/* RAG Chat Feed Layout & Message Bubbles styling */
+.chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 10px 20px 10px;
+    min-height: 250px;
+}
+
+.chat-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto;
+    max-width: 450px;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.chat-placeholder-icon {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.15);
+    margin-bottom: 16px;
+}
+
+.chat-placeholder h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.chat-placeholder p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* Chat Message Bubbles */
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.chat-message.user {
+    align-self: flex-end;
+}
+
+.chat-message.bot {
+    align-self: flex-start;
+}
+
+.chat-message .message-content {
+    padding: 14px 18px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* User Message specific layout */
+.chat-message.user .message-content {
+    background: var(--accent-gradient);
+    color: #000000;
+    font-weight: 500;
+    border-bottom-right-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+}
+
+/* Bot Message specific layout */
+.chat-message.bot .message-content {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid var(--border-color);
+    color: #f3f4f6;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+}
+
+.chat-message.bot.error-msg .message-content {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.08);
+    color: #fca5a5;
+}
+
+/* Bot Message Header Simple Badge Actions */
+.card-header-simple {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    padding: 0 8px;
+}
+
+.message-badge {
+    font-size: 11px;
+    font-weight: 600;
+    color: #10b981;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.message-badge.info {
+    color: #60a5fa;
+}
+
+.message-badge.danger {
+    color: #f87171;
+}
+
+.copy-msg-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.copy-msg-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Typing Indicator Animation */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+}
+
+.typing-indicator span {
+    width: 6px;
+    height: 6px;
+    background-color: var(--text-secondary);
+    border-radius: 50%;
+    display: inline-block;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { 
+        transform: scale(0);
+    } 40% { 
+        transform: scale(1.0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Markdown typography inside Bot Bubble */
+.chat-message.bot .markdown-body {
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-size: 14.5px !important;
+    color: #f3f4f6 !important;
+}
+
 .markdown-body ul, 
 .markdown-body ol {
-    padding-left: 28px !important;
-    margin-top: 10px !important;
-    margin-bottom: 16px !important;
-    list-style-position: outside !important;
-}
-
-.markdown-body ul {
-    list-style-type: disc !important;
-}
-
-.markdown-body ol {
-    list-style-type: decimal !important;
+    padding-left: 24px !important;
+    margin-top: 8px !important;
+    margin-bottom: 12px !important;
 }
 
 .markdown-body li {
-    margin-bottom: 8px !important;
-    line-height: 1.7 !important;
-    display: list-item !important;
-    padding-left: 4px !important;
-}
-
-.markdown-body li > ul,
-.markdown-body li > ol {
-    margin-top: 6px !important;
     margin-bottom: 6px !important;
-    padding-left: 24px !important;
+    line-height: 1.6 !important;
 }
 
-.markdown-body ul ul {
-    list-style-type: circle !important;
+/* Ensure suggested section and input box look premium sticky at bottom */
+.suggestions-section {
+    padding: 10px 0 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.markdown-body ol ol {
-    list-style-type: lower-alpha !important;
+.query-box {
+    padding-bottom: 10px;
+}
+
+.query-input-wrapper {
+    background: rgba(17, 24, 39, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    border-radius: 12px !important;
+}
+
+.query-input-wrapper:focus-within {
+    border-color: rgba(0, 242, 254, 0.4) !important;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.15) !important;
+}
+
+#query-input {
+    color: #f3f4f6 !important;
 }
 
 

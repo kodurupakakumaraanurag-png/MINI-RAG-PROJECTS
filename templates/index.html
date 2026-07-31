@@ -128,7 +128,15 @@
 
             <!-- Conversation Panel -->
             <section class="conversation-container">
-                
+                <!-- Chat History Feed -->
+                <div id="chat-history" class="chat-history">
+                    <div class="chat-placeholder">
+                        <i class="fa-regular fa-comments chat-placeholder-icon"></i>
+                        <h3>RAG Chat Assistant</h3>
+                        <p>Ask a question about the active document. Uncheck <strong>Strict RAG Grounding</strong> in the sidebar to query Gemini's general knowledge.</p>
+                    </div>
+                </div>
+
                 <!-- Query presets suggestions -->
                 <div class="suggestions-section">
                     <span class="suggestions-label"><i class="fa-solid fa-lightbulb"></i> Try asking:</span>
@@ -147,29 +155,6 @@
                             <i class="fa-solid fa-paper-plane send-icon"></i>
                         </button>
                     </div>
-                </div>
-
-                <!-- Response Panel -->
-                <div id="response-card" class="response-card hidden">
-                    <div class="card-header">
-                        <span class="badge"><i class="fa-solid fa-circle-check"></i> Grounded Generation</span>
-                        <div class="card-actions">
-                            <button id="copy-btn" class="action-btn" title="Copy Answer"><i class="fa-regular fa-copy"></i></button>
-                        </div>
-                    </div>
-                    
-                    <div class="card-body">
-                        <!-- Generated Answer Markdown -->
-                        <div id="answer-content" class="markdown-body">
-                            <!-- Answer text goes here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Loading State Spinner -->
-                <div id="loading-spinner" class="loading-state hidden">
-                    <div class="spinner-core"></div>
-                    <span>AI Engine thinking & retrieving facts...</span>
                 </div>
             </section>
 
