@@ -97,9 +97,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handles updates when switching configs
     function handleUsecaseChange(usecaseId) {
+        // Clear custom text and upload status when switching use cases
+        customText.value = '';
+        uploadStatus.classList.add('hidden');
+        uploadStatus.innerHTML = '';
+        
+        const personaInputContainer = document.getElementById('persona-input-container');
+
         if (usecaseId === 'custom_upload') {
-            // Show Custom panel, enable edit input fields
-            customDocPanel.classList.remove('hidden');
+            // Show Custom persona edit field
+            if (personaInputContainer) personaInputContainer.classList.remove('hidden');
             usecaseTitle.textContent = 'Custom Grounded Knowledge Base';
             usecaseDesc.textContent = 'Upload custom documentation and configure custom system prompt instruction rules.';
             
@@ -111,10 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
             topKInput.value = 2;
             topKVal.textContent = 2;
             
+            customText.placeholder = 'Paste custom policy, log file, or document text here...';
             queriesContainer.innerHTML = '<span class="text-muted" style="font-size: 12px;">No queries predefined. Fill documentation details below and type your query directly.</span>';
         } else {
             // Preset configuration
-            customDocPanel.classList.add('hidden');
+            if (personaInputContainer) personaInputContainer.classList.add('hidden');
             const data = usecasesData[usecaseId];
             if (!data) return;
             
@@ -128,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
             overlapVal.textContent = data.default_overlap;
             topKInput.value = data.default_top_k;
             topKVal.textContent = data.default_top_k;
+
+            customText.placeholder = 'Or override by uploading/pasting custom document text here...';
 
             // Render clickable predefined query chips
             queriesContainer.innerHTML = '';
@@ -182,8 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
             top_k: parseInt(topKInput.value)
         };
 
+        const docText = customText.value.trim();
+        if (docText) {
+            payload.document = docText;
+        }
+
         if (usecaseId === 'custom_upload') {
-            payload.document = customText.value.trim();
             payload.persona = customPersona.value.trim();
             
             if (!payload.document) {

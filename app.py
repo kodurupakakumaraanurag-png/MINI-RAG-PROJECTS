@@ -236,7 +236,13 @@ def query_rag():
         usecase = USE_CASES.get(usecase_id)
         if not usecase:
             return jsonify({"error": "Invalid usecase_id"}), 400
-        document_text = usecase["document"]
+            
+        custom_document = data.get("document", "").strip()
+        if custom_document:
+            document_text = custom_document
+        else:
+            document_text = usecase["document"]
+            
         persona = usecase["persona"]
         default_max_words = usecase["default_max_words"]
         default_overlap = usecase["default_overlap"]
