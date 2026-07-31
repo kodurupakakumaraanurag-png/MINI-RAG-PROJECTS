@@ -147,7 +147,7 @@ class RAGEngine:
             # Google Gemini 3.5 Flash
             try:
                 import requests
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={gemini_key}"
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={gemini_key}"
                 headers = {"Content-Type": "application/json"}
                 payload = {
                     "contents": [

@@ -160,7 +160,7 @@ class RAGEngine:
         if self.gemini_key:
             try:
                 import requests
-                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={self.gemini_key}"
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={self.gemini_key}"
                 headers = {"Content-Type": "application/json"}
                 payload = {
                     "contents": [
@@ -318,7 +318,7 @@ class RAGEngine:
             if self.gemini_key:
                 try:
                     import requests
-                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key={self.gemini_key}"
+                    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key={self.gemini_key}"
                     headers = {"Content-Type": "application/json"}
                     payload = {
                         "contents": [
