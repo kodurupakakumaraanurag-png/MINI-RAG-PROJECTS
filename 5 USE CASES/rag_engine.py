@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 
 try:
     if hasattr(sys.stdout, "reconfigure"):
@@ -183,7 +184,7 @@ class RAGEngine:
                         ]
                     }
                 }
-                res = requests.post(url, headers=headers, json=payload, timeout=15)
+                res = requests.post(url, headers=headers, json=payload, timeout=30)
                 res.raise_for_status()
                 res_data = res.json()
                 normalized = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
@@ -255,8 +256,20 @@ class RAGEngine:
             
         return retrieved, normalized_query
 
+    def _is_greeting(self, query: str) -> bool:
+        clean = re.sub(r'[^\w\s]', '', query.lower().strip())
+        greetings = {
+            "hi", "hello", "hey", "hello there", "hi there", "greetings", "good morning", 
+            "good afternoon", "good evening", "howdy", "hola", "yo", "who are you", 
+            "what are you", "what is your name", "how are you", "help", "chitchat",
+            "are you there", "good day"
+        }
+        return clean in greetings or any(clean == g for g in greetings) or clean.startswith("hi ") or clean.startswith("hello ") or clean.startswith("hey ")
+
     def ask(self, query, top_k=3):
         """Retrieves contexts, queries Claude/Gemini/OpenAI with grounding constraints, and renders styled output."""
+        is_greet = self._is_greeting(query)
+        
         with self.console.status("[bold green]Analyzing context and generating response...", spinner="dots"):
             # Fetch retrieved context
             retrieved_chunks, normalized_query = self.retrieve(query, top_k=top_k)
@@ -267,19 +280,27 @@ class RAGEngine:
                 # Present each block with source label clearly
                 context_str += f"[{chunk['source']}]\n{chunk['text']}\n\n"
                 
-            # Construct strict grounded generation prompt
-            prompt = (
-                f"You are {self.persona}.\n\n"
-                "RULES FOR ANSWERING:\n"
-                "1. Answer the User Query ONLY using the facts present in the Context section below.\n"
-                "2. Do NOT use outside knowledge, extrapolate, or assume facts not explicitly mentioned.\n"
-                "3. If the Context does not contain the answer, say: 'I'm sorry, but I do not have information about that in the provided documents.'\n"
-                "4. Cite your facts by referencing the source label in brackets (e.g., [resume.pdf], [Source 1], etc.) inline whenever citing a fact.\n\n"
-                "Context:\n"
-                f"{context_str}\n"
-                f"User Query: {query}\n\n"
-                "Answer:"
-            )
+            if is_greet:
+                prompt = (
+                    f"You are {self.persona}.\n\n"
+                    "The user is greeting you or initiating conversation. "
+                    "Respond politely and introduce yourself as your persona, inviting them to ask questions about your documents. Keep it short."
+                )
+                system_instr = f"You are {self.persona}. Respond politely to the user greeting or chitchat. Keep it brief and friendly."
+            else:
+                prompt = (
+                    f"You are {self.persona}.\n\n"
+                    "RULES FOR ANSWERING:\n"
+                    "1. Answer the User Query ONLY using the facts present in the Context section below.\n"
+                    "2. Do NOT use outside knowledge, extrapolate, or assume facts not explicitly mentioned.\n"
+                    "3. If the Context does not contain the answer, say: 'I\'m sorry, but I do not have information about that in the provided documents.'\n"
+                    "4. Cite your facts by referencing the source label in brackets (e.g., [resume.pdf], [Source 1], etc.) inline whenever citing a fact.\n\n"
+                    "Context:\n"
+                    f"{context_str}\n"
+                    f"User Query: {query}\n\n"
+                    "Answer:"
+                )
+                system_instr = f"You are {self.persona}. You are a grounded QA assistant. Answer only from the provided context. If the answer is not present, say that you don't know."
             
             response_text = ""
             if self.gemini_key:
@@ -304,17 +325,20 @@ class RAGEngine:
                         "systemInstruction": {
                             "parts": [
                                 {
-                                    "text": f"You are {self.persona}. You are a grounded QA assistant. Answer only from the provided context. If the answer is not present, say that you don't know."
+                                    "text": system_instr
                                 }
                             ]
                         }
                     }
-                    res = requests.post(url, headers=headers, json=payload, timeout=30)
+                    res = requests.post(url, headers=headers, json=payload, timeout=60)
                     res.raise_for_status()
                     res_data = res.json()
                     response_text = res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
                 except Exception as e:
-                    response_text = f"**Error calling Gemini API:** {str(e)}"
+                    if is_greet:
+                        response_text = f"Hello! As {self.persona}, how can I help you today?"
+                    else:
+                        response_text = f"**Error calling Gemini API:** {str(e)}"
                     
             elif self.client:
                 try:
@@ -322,14 +346,17 @@ class RAGEngine:
                         model=self.model_name,
                         max_tokens=600,
                         temperature=0.2,
-                        system=f"You are {self.persona}. You are a grounded QA assistant. Answer only from the provided context. If the answer is not present, say that you don't know.",
+                        system=system_instr,
                         messages=[
                             {"role": "user", "content": prompt}
                         ]
                     )
                     response_text = response.content[0].text.strip()
                 except Exception as e:
-                    response_text = f"**Error calling Anthropic API:** {str(e)}"
+                    if is_greet:
+                        response_text = f"Hello! As {self.persona}, how can I help you today?"
+                    else:
+                        response_text = f"**Error calling Anthropic API:** {str(e)}"
                     
             elif self.openai_key:
                 try:
@@ -339,15 +366,21 @@ class RAGEngine:
                         max_tokens=600,
                         temperature=0.2,
                         messages=[
-                            {"role": "system", "content": f"You are {self.persona}. You are a grounded QA assistant. Answer only from the provided context. If the answer is not present, say that you don't know."},
+                            {"role": "system", "content": system_instr},
                             {"role": "user", "content": prompt}
                         ]
                     )
                     response_text = response.choices[0].message.content.strip()
                 except Exception as e:
-                    response_text = f"**Error calling OpenAI API:** {str(e)}"
+                    if is_greet:
+                        response_text = f"Hello! As {self.persona}, how can I help you today?"
+                    else:
+                        response_text = f"**Error calling OpenAI API:** {str(e)}"
             else:
-                response_text = "No configured API key found (tried GEMINI_API_KEY, ANTHROPIC_API_KEY, and OPENAI_API_KEY / API_KEY)."
+                if is_greet:
+                    response_text = f"Hello! As {self.persona}, how can I help you today?"
+                else:
+                    response_text = "No configured API key found (tried GEMINI_API_KEY, ANTHROPIC_API_KEY, and OPENAI_API_KEY / API_KEY)."
                 
         # Render the response elements with high-aesthetic styling
         self.console.print()

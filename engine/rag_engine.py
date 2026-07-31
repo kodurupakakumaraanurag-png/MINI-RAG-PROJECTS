@@ -74,31 +74,52 @@ class RAGEngine:
             
         return results
 
+    def _is_greeting(self, query: str) -> bool:
+        clean = re.sub(r'[^\w\s]', '', query.lower().strip())
+        greetings = {
+            "hi", "hello", "hey", "hello there", "hi there", "greetings", "good morning", 
+            "good afternoon", "good evening", "howdy", "hola", "yo", "who are you", 
+            "what are you", "what is your name", "how are you", "help", "chitchat",
+            "are you there", "good day"
+        }
+        return clean in greetings or any(clean == g for g in greetings) or clean.startswith("hi ") or clean.startswith("hello ") or clean.startswith("hey ")
+
     def ask(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str = None) -> str:
         """Generates grounded response using Anthropic or OpenAI API, with a local heuristic fallback."""
-        # Enforce strict grounding: if retrieval score is zero, assume missing info
-        if not retrieved_chunks or all(score == 0.0 for _, score in retrieved_chunks):
-            return "I don't have that information"
+        persona_str = persona or "a helpful RAG assistant"
+        is_greet = self._is_greeting(query)
+
+        # Enforce strict grounding: if retrieval score is zero, assume missing info, unless it is a greeting/chitchat
+        if not is_greet:
+            if not retrieved_chunks or all(score == 0.0 for _, score in retrieved_chunks):
+                return "I don't have that information"
             
         # Format retrieval context block
         context_str = ""
         for chunk, score in retrieved_chunks:
             context_str += f"[Source {chunk['index']}]\n{chunk['text']}\n\n"
             
-        persona_str = persona or "a helpful RAG assistant"
-        
-        prompt = (
-            f"You are {persona_str}.\n\n"
-            "RULES FOR ANSWERING:\n"
-            "1. Answer the User Query ONLY using the facts present in the Context section below.\n"
-            "2. Do NOT use outside knowledge, extrapolate, or assume facts not explicitly mentioned.\n"
-            "3. If the Context does not contain the answer, you must return exactly the string: \"I don't have that information\" and nothing else.\n"
-            "4. Cite your facts by referencing the source label in brackets (e.g., [Source 0], [Source 1], etc.) inline whenever citing a fact.\n\n"
-            "Context:\n"
-            f"{context_str}\n"
-            f"User Query: {query}\n\n"
-            "Answer:"
-        )
+        if is_greet:
+            prompt = (
+                f"You are {persona_str}.\n\n"
+                "The user is greeting you or initiating conversation. "
+                "Respond politely and introduce yourself as your persona, inviting them to ask questions about your documents. Keep it short."
+            )
+            system_instr = f"You are {persona_str}. Respond politely to the user greeting or chitchat. Keep it brief and friendly."
+        else:
+            prompt = (
+                f"You are {persona_str}.\n\n"
+                "RULES FOR ANSWERING:\n"
+                "1. Answer the User Query ONLY using the facts present in the Context section below.\n"
+                "2. Do NOT use outside knowledge, extrapolate, or assume facts not explicitly mentioned.\n"
+                "3. If the Context does not contain the answer, you must return exactly the string: \"I don't have that information\" and nothing else.\n"
+                "4. Cite your facts by referencing the source label in brackets (e.g., [Source 0], [Source 1], etc.) inline whenever citing a fact.\n\n"
+                "Context:\n"
+                f"{context_str}\n"
+                f"User Query: {query}\n\n"
+                "Answer:"
+            )
+            system_instr = f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information"
         
         # Detect API keys
         gemini_key = os.getenv("GEMINI_API_KEY")
@@ -133,16 +154,18 @@ class RAGEngine:
                     "systemInstruction": {
                         "parts": [
                             {
-                                "text": f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information"
+                                "text": system_instr
                             }
                         ]
                     }
                 }
-                res = requests.post(url, headers=headers, json=payload, timeout=30)
+                res = requests.post(url, headers=headers, json=payload, timeout=60)
                 res.raise_for_status()
                 res_data = res.json()
                 return res_data["candidates"][0]["content"]["parts"][0]["text"].strip()
             except Exception:
+                if is_greet:
+                    return f"Hello! As {persona_str}, how can I help you today?"
                 return self._heuristic_fallback(query, retrieved_chunks, persona_str)
                 
         elif anthropic_key and anthropic_key.startswith("sk-ant-"):
@@ -153,13 +176,15 @@ class RAGEngine:
                     model="claude-3-5-sonnet-20241022",
                     max_tokens=500,
                     temperature=0.2,
-                    system=f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information",
+                    system=system_instr,
                     messages=[
                         {"role": "user", "content": prompt}
                     ]
                 )
                 return response.content[0].text.strip()
             except Exception:
+                if is_greet:
+                    return f"Hello! As {persona_str}, how can I help you today?"
                 return self._heuristic_fallback(query, retrieved_chunks, persona_str)
         elif openai_key:
             # OpenAI GPT-4o (handles sk-proj- or standard sk- keys)
@@ -170,14 +195,18 @@ class RAGEngine:
                     max_tokens=500,
                     temperature=0.2,
                     messages=[
-                        {"role": "system", "content": f"You are {persona_str}. You are a strictly grounded assistant. Answer only from the provided context. If the answer is not present, reply exactly with: I don't have that information"},
+                        {"role": "system", "content": system_instr},
                         {"role": "user", "content": prompt}
                     ]
                 )
                 return response.choices[0].message.content.strip()
             except Exception:
+                if is_greet:
+                    return f"Hello! As {persona_str}, how can I help you today?"
                 return self._heuristic_fallback(query, retrieved_chunks, persona_str)
         else:
+            if is_greet:
+                return f"Hello! As {persona_str}, how can I help you today?"
             return self._heuristic_fallback(query, retrieved_chunks, persona_str)
 
     def _heuristic_fallback(self, query: str, retrieved_chunks: list[tuple[dict, float]], persona: str) -> str:
