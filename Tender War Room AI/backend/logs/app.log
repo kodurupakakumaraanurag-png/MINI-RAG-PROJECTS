@@ -1,0 +1,1370 @@
+[2026-08-05 00:04:59,793] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:05:39,647] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:05:39,760] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0094s
+[2026-08-05 00:05:39,762] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:05:39,783] ERROR [app.main:71] - Unhandled error occurred on /api/v1/auth/setup-admin: '>' not supported between instances of 'coroutine' and 'int'
+Traceback (most recent call last):
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\main.py", line 38, in log_requests_and_duration
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 352, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\api\v1\endpoints\auth.py", line 89, in setup_initial_admin
+    if count > 0:
+       ^^^^^^^^^
+TypeError: '>' not supported between instances of 'coroutine' and 'int'
+[2026-08-05 00:05:40,700] ERROR [app.main:71] - Unhandled error occurred on /api/v1/auth/setup-admin: '>' not supported between instances of 'coroutine' and 'int'
+Traceback (most recent call last):
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\main.py", line 38, in log_requests_and_duration
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 352, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\api\v1\endpoints\auth.py", line 89, in setup_initial_admin
+    if count > 0:
+       ^^^^^^^^^
+TypeError: '>' not supported between instances of 'coroutine' and 'int'
+[2026-08-05 00:05:41,409] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0237s
+[2026-08-05 00:05:41,410] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:05:41,425] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0061s
+[2026-08-05 00:05:41,426] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:05:41,445] ERROR [app.main:71] - Unhandled error occurred on /api/v1/auth/me: 2 validation errors:
+  {'type': 'datetime_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid datetime', 'input': None}
+  {'type': 'datetime_type', 'loc': ('response', 'updated_at'), 'msg': 'Input should be a valid datetime', 'input': None}
+
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\api\v1\endpoints\auth.py", line 105, in read_user_me
+    GET /api/v1/auth/me
+Traceback (most recent call last):
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\main.py", line 38, in log_requests_and_duration
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<11 lines>...
+    )
+    ^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 324, in serialize_response
+    raise ResponseValidationError(
+    ...<3 lines>...
+    )
+fastapi.exceptions.ResponseValidationError: 2 validation errors:
+  {'type': 'datetime_type', 'loc': ('response', 'created_at'), 'msg': 'Input should be a valid datetime', 'input': None}
+  {'type': 'datetime_type', 'loc': ('response', 'updated_at'), 'msg': 'Input should be a valid datetime', 'input': None}
+
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\api\v1\endpoints\auth.py", line 105, in read_user_me
+    GET /api/v1/auth/me
+[2026-08-05 00:06:19,640] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:06:19,745] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0093s
+[2026-08-05 00:06:19,746] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:06:19,766] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0074s
+[2026-08-05 00:06:19,766] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:06:19,778] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0021s
+[2026-08-05 00:06:19,778] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:06:19,801] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0156s
+[2026-08-05 00:06:19,802] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:06:19,816] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0061s
+[2026-08-05 00:06:19,817] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:06:19,828] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0023s
+[2026-08-05 00:06:19,828] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:11:14,682] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:11:14,888] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0126s
+[2026-08-05 00:11:14,889] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:11:14,921] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0071s
+[2026-08-05 00:11:14,922] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:11:14,932] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0021s
+[2026-08-05 00:11:14,932] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:11:14,959] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0172s
+[2026-08-05 00:11:14,959] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:11:14,972] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0050s
+[2026-08-05 00:11:14,972] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:11:14,982] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0016s
+[2026-08-05 00:11:14,983] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:11:15,358] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:11:15,392] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:11:15,419] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0038s
+[2026-08-05 00:11:15,419] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:11:15,430] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0026s
+[2026-08-05 00:11:15,431] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:11:49,687] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:11:49,932] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0139s
+[2026-08-05 00:11:49,933] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:11:49,971] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0090s
+[2026-08-05 00:11:49,972] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:11:49,984] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0028s
+[2026-08-05 00:11:49,985] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:11:50,009] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0153s
+[2026-08-05 00:11:50,009] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:11:50,021] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0048s
+[2026-08-05 00:11:50,022] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:11:50,037] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0028s
+[2026-08-05 00:11:50,037] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:11:50,073] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:11:50,090] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:11:50,116] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0034s
+[2026-08-05 00:11:50,117] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:11:50,129] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0024s
+[2026-08-05 00:11:50,129] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:19:49,507] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:19:50,354] WARNING [app.extraction:24] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:20:37,692] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:20:37,990] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:20:38,190] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0137s
+[2026-08-05 00:20:38,191] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:20:38,216] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0066s
+[2026-08-05 00:20:38,216] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:20:38,227] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0015s
+[2026-08-05 00:20:38,227] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:20:38,250] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0146s
+[2026-08-05 00:20:38,251] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:20:38,264] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0051s
+[2026-08-05 00:20:38,264] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:20:38,274] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0018s
+[2026-08-05 00:20:38,275] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:20:38,663] INFO [app.main:40] - Request: POST /api/v1/tenders/45a1ad30-99cb-4185-9a1c-815d0fe8ccd9/extract | Status: 202 | Duration: 0.0047s
+[2026-08-05 00:20:38,664] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/45a1ad30-99cb-4185-9a1c-815d0fe8ccd9/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 00:20:38,716] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:20:38,742] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:20:38,756] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0028s
+[2026-08-05 00:20:38,757] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:20:38,770] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0026s
+[2026-08-05 00:20:38,770] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:22:29,203] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:22:29,524] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:22:29,738] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0176s
+[2026-08-05 00:22:29,739] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:22:29,766] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0068s
+[2026-08-05 00:22:29,766] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:22:29,778] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0017s
+[2026-08-05 00:22:29,779] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:22:29,800] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0141s
+[2026-08-05 00:22:29,801] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:22:29,815] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0056s
+[2026-08-05 00:22:29,816] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:22:29,826] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0021s
+[2026-08-05 00:22:29,827] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:22:30,213] INFO [app.main:40] - Request: POST /api/v1/tenders/336df9db-5de3-47b6-8b81-8221130ef02a/extract | Status: 202 | Duration: 0.0041s
+[2026-08-05 00:22:30,214] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/336df9db-5de3-47b6-8b81-8221130ef02a/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 00:22:30,260] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:22:30,276] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:22:30,292] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0045s
+[2026-08-05 00:22:30,293] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:22:30,302] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0019s
+[2026-08-05 00:22:30,303] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:25:19,902] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:25:20,222] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:25:20,429] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0156s
+[2026-08-05 00:25:20,430] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:25:20,457] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0059s
+[2026-08-05 00:25:20,458] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:25:20,467] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0015s
+[2026-08-05 00:25:20,467] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:25:20,492] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0168s
+[2026-08-05 00:25:20,492] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:25:20,505] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0065s
+[2026-08-05 00:25:20,506] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:25:20,518] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0025s
+[2026-08-05 00:25:20,519] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:25:20,554] INFO [app.main:40] - Request: POST /api/v1/tenders/e87043f8-a9fc-4b3c-8b43-ff377eb394b5/extract | Status: 202 | Duration: 0.0034s
+[2026-08-05 00:25:20,555] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/e87043f8-a9fc-4b3c-8b43-ff377eb394b5/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 00:25:20,597] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:25:20,614] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:25:20,631] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0074s
+[2026-08-05 00:25:20,632] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:25:20,643] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0028s
+[2026-08-05 00:25:20,644] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:28:01,991] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:28:02,339] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:28:02,547] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0164s
+[2026-08-05 00:28:02,548] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:28:03,223] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0062s
+[2026-08-05 00:28:03,224] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:28:03,409] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0060s
+[2026-08-05 00:28:03,410] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:29:07,336] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:29:07,716] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:29:07,936] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0148s
+[2026-08-05 00:29:07,937] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:29:07,982] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0067s
+[2026-08-05 00:29:07,983] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:29:07,993] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0017s
+[2026-08-05 00:29:07,994] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:29:08,018] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0163s
+[2026-08-05 00:29:08,019] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:29:08,033] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0061s
+[2026-08-05 00:29:08,034] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:29:08,046] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0018s
+[2026-08-05 00:29:08,046] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:29:08,084] INFO [app.main:40] - Request: POST /api/v1/tenders/9faf131e-52c8-448f-9928-f87dbb4f331a/extract | Status: 202 | Duration: 0.0041s
+[2026-08-05 00:29:08,084] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/9faf131e-52c8-448f-9928-f87dbb4f331a/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 00:29:08,127] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:29:08,146] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:29:08,158] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0033s
+[2026-08-05 00:29:08,159] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:29:08,169] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0019s
+[2026-08-05 00:29:08,170] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:30:19,059] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:30:19,386] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:30:21,259] INFO [faiss.loader:160] - Loading faiss with AVX2 support.
+[2026-08-05 00:30:21,259] INFO [faiss.loader:166] - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2026-08-05 00:30:21,259] INFO [faiss.loader:186] - Loading faiss.
+[2026-08-05 00:30:21,834] INFO [faiss.loader:189] - Successfully loaded faiss.
+[2026-08-05 00:31:04,021] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 00:31:04,023] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 00:31:04,421] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+[2026-08-05 00:31:04,663] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:31:04,664] WARNING [huggingface_hub.utils._http:951] - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[2026-08-05 00:31:04,686] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:04,719] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:04,969] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:31:04,992] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:05,030] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:05,045] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 00:31:05,280] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:31:05,302] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:05,547] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:31:05,570] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 00:31:05,602] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 00:31:05,875] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:31:05,897] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:06,143] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:31:06,164] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:06,189] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:06,475] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:31:06,708] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:31:06,731] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:06,757] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:31:07,107] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+[2026-08-05 00:32:40,171] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:40,414] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:40,652] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:40,894] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:41,134] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:41,157] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:41,182] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:41,442] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:41,466] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:41,704] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:41,728] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:41,966] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:41,990] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:42,237] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:42,477] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 00:32:42,713] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/vocab.txt "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:42,736] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/vocab.txt "HTTP/1.1 200 OK"
+[2026-08-05 00:32:42,774] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/vocab.txt "HTTP/1.1 200 OK"
+[2026-08-05 00:32:43,360] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:43,382] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:43,417] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:43,776] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/added_tokens.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:44,020] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/special_tokens_map.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:44,042] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/special_tokens_map.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:44,068] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/special_tokens_map.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:44,335] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:44,691] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:44,712] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:44,736] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:44,989] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 00:32:45,038] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0216s
+[2026-08-05 00:32:45,038] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:32:45,132] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0086s
+[2026-08-05 00:32:45,133] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:32:45,150] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0063s
+[2026-08-05 00:32:45,151] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:32:45,183] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0187s
+[2026-08-05 00:32:45,183] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:32:45,201] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0065s
+[2026-08-05 00:32:45,201] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:32:45,216] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0037s
+[2026-08-05 00:32:45,217] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:32:45,264] INFO [app.main:40] - Request: POST /api/v1/tenders/431a40b4-31e0-4706-ba5a-dc330acf5e8a/extract | Status: 202 | Duration: 0.0044s
+[2026-08-05 00:32:45,265] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/431a40b4-31e0-4706-ba5a-dc330acf5e8a/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 00:32:45,305] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:32:45,322] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:32:45,337] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0030s
+[2026-08-05 00:32:45,338] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:32:45,351] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0021s
+[2026-08-05 00:32:45,352] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:32:45,359] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 00:32:45,362] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 00:32:45,595] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:45,615] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:45,850] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:45,870] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:45,872] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 00:32:46,111] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:46,132] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:46,364] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:46,384] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 00:32:46,619] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:46,640] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:46,874] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:46,895] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:47,130] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:47,366] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:47,387] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:47,704] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:47,991] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:48,480] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:48,717] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:48,970] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:48,994] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:49,234] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:49,255] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:49,490] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:49,511] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:49,750] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:49,771] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:50,010] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 00:32:50,250] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 00:32:50,535] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:32:50,557] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 00:32:50,797] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 00:32:50,804] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 00:32:50,946] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 00:32:50,977] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0029s
+[2026-08-05 00:32:50,977] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 00:35:25,097] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:35:25,512] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:35:25,660] INFO [faiss.loader:160] - Loading faiss with AVX2 support.
+[2026-08-05 00:35:25,661] INFO [faiss.loader:166] - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2026-08-05 00:35:25,661] INFO [faiss.loader:186] - Loading faiss.
+[2026-08-05 00:35:25,685] INFO [faiss.loader:189] - Successfully loaded faiss.
+[2026-08-05 00:35:38,549] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 00:35:38,551] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 00:35:38,906] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:38,910] WARNING [huggingface_hub.utils._http:951] - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[2026-08-05 00:35:38,931] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:39,169] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:39,191] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:39,193] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 00:35:39,425] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:39,447] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:39,680] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:39,703] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 00:35:39,933] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:39,954] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:40,258] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:40,279] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:40,519] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:40,759] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:40,782] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:41,205] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:41,445] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:41,706] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:41,942] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:42,182] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:42,204] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:42,444] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:42,464] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:42,712] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:42,732] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:42,969] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:42,991] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:43,239] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:43,477] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 00:35:43,773] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:43,795] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,037] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,079] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0246s
+[2026-08-05 00:35:44,080] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,129] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0062s
+[2026-08-05 00:35:44,129] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:35:44,140] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0016s
+[2026-08-05 00:35:44,140] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:35:44,168] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0183s
+[2026-08-05 00:35:44,169] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,184] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0060s
+[2026-08-05 00:35:44,184] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:35:44,197] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0021s
+[2026-08-05 00:35:44,198] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,236] INFO [app.main:40] - Request: POST /api/v1/tenders/571f2415-cf68-410e-baad-a1e75179a5ec/extract | Status: 202 | Duration: 0.0038s
+[2026-08-05 00:35:44,237] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/571f2415-cf68-410e-baad-a1e75179a5ec/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 00:35:44,252] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 00:35:44,260] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 00:35:44,267] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 00:35:44,290] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 00:35:44,298] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 00:35:44,315] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0031s
+[2026-08-05 00:35:44,316] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,320] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0025s
+[2026-08-05 00:35:44,321] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,324] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0019s
+[2026-08-05 00:35:44,325] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,356] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:35:44,379] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:35:44,393] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0032s
+[2026-08-05 00:35:44,394] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:35:44,407] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0027s
+[2026-08-05 00:35:44,407] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,415] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 00:35:44,418] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 00:35:44,653] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:44,675] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,912] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:44,933] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:44,935] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 00:35:45,170] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:45,190] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:45,426] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:45,447] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 00:35:45,685] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:45,706] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:45,941] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:45,962] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:46,900] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:47,135] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:47,157] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:47,452] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:47,691] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:47,938] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:48,181] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:48,427] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:48,447] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:48,686] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:48,708] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:48,949] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:48,972] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:49,209] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:49,232] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:49,479] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 00:35:49,722] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 00:35:50,536] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:35:51,029] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 00:35:51,271] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 00:35:51,274] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 00:35:51,307] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 00:35:51,333] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0023s
+[2026-08-05 00:35:51,334] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 00:45:26,507] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 00:45:26,911] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 00:45:27,046] INFO [faiss.loader:160] - Loading faiss with AVX2 support.
+[2026-08-05 00:45:27,047] INFO [faiss.loader:166] - Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2026-08-05 00:45:27,047] INFO [faiss.loader:186] - Loading faiss.
+[2026-08-05 00:45:27,076] INFO [faiss.loader:189] - Successfully loaded faiss.
+[2026-08-05 00:45:39,952] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 00:45:39,955] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 00:45:40,277] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:40,300] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:40,537] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:40,559] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:40,561] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 00:45:40,794] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:40,795] WARNING [huggingface_hub.utils._http:951] - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+[2026-08-05 00:45:40,815] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:41,059] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:41,081] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 00:45:41,318] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:41,341] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:41,581] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:41,603] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:41,841] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:42,079] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:42,101] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:42,532] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:42,827] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:43,073] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:43,306] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:43,541] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:43,563] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:43,802] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:43,827] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:44,069] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:44,091] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:44,334] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:44,357] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:44,601] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:44,845] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,147] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:45,170] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,411] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,459] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0328s
+[2026-08-05 00:45:45,460] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,510] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0069s
+[2026-08-05 00:45:45,511] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 00:45:45,523] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0022s
+[2026-08-05 00:45:45,523] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:45:45,551] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0164s
+[2026-08-05 00:45:45,552] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,569] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0070s
+[2026-08-05 00:45:45,569] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 00:45:45,585] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0027s
+[2026-08-05 00:45:45,585] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,597] INFO [app.estimation:21] - Batch updating BOQ rates for tender: 17596019-d144-4564-97c7-a328174705f3
+[2026-08-05 00:45:45,605] INFO [app.estimation:64] - Generating cost sheet summary for 8cf76031-df18-4ebb-89ec-916e5ca7876b (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 00:45:45,618] INFO [app.main:40] - Request: PUT /api/v1/estimates/de26660f-fd16-42ef-9d36-edc7abd08873/boq-rates | Status: 200 | Duration: 0.0030s
+[2026-08-05 00:45:45,619] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/de26660f-fd16-42ef-9d36-edc7abd08873/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,625] INFO [app.main:40] - Request: POST /api/v1/estimates/de26660f-fd16-42ef-9d36-edc7abd08873/calculate | Status: 200 | Duration: 0.0046s
+[2026-08-05 00:45:45,626] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/de26660f-fd16-42ef-9d36-edc7abd08873/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,662] INFO [app.main:40] - Request: POST /api/v1/tenders/0969d914-21cc-4ba1-815a-1854d0447814/extract | Status: 202 | Duration: 0.0038s
+[2026-08-05 00:45:45,663] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/0969d914-21cc-4ba1-815a-1854d0447814/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 00:45:45,685] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 00:45:45,695] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 00:45:45,710] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 00:45:45,718] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 00:45:45,728] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 00:45:45,742] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0027s
+[2026-08-05 00:45:45,742] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,745] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0018s
+[2026-08-05 00:45:45,746] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,749] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0018s
+[2026-08-05 00:45:45,750] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,784] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 00:45:45,800] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 00:45:45,818] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0036s
+[2026-08-05 00:45:45,819] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 00:45:45,831] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0019s
+[2026-08-05 00:45:45,832] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 00:45:45,841] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 00:45:45,843] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 00:45:46,931] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:46,952] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:47,512] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:47,536] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:47,537] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 00:45:47,775] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:47,800] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:48,042] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:48,065] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 00:45:48,308] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:48,329] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:48,569] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:48,592] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:48,825] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:49,057] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:49,571] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:50,601] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:50,839] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:51,073] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:51,317] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:51,562] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:51,585] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:51,826] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:51,848] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:52,094] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:52,116] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:52,357] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:52,380] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:52,620] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 00:45:52,860] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 00:45:53,170] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 00:45:53,191] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 00:45:53,434] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 00:45:53,441] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 00:45:53,476] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 00:45:53,505] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0025s
+[2026-08-05 00:45:53,505] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:02:12,829] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 01:02:13,093] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 01:02:13,306] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0299s
+[2026-08-05 01:02:13,308] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,355] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0059s
+[2026-08-05 01:02:13,355] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 01:02:13,365] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0017s
+[2026-08-05 01:02:13,366] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:02:13,391] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0157s
+[2026-08-05 01:02:13,392] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,406] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0053s
+[2026-08-05 01:02:13,406] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:02:13,419] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0020s
+[2026-08-05 01:02:13,420] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,431] INFO [app.estimation:21] - Batch updating BOQ rates for tender: b4cc0e1b-6144-49d9-adda-99a6a185fe3a
+[2026-08-05 01:02:13,440] INFO [app.estimation:64] - Generating cost sheet summary for 4aea1293-0da8-43a4-aa4b-b18a201e52b9 (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 01:02:13,455] INFO [app.main:40] - Request: PUT /api/v1/estimates/1e5c6546-6f58-46c3-af1c-0dcd268f638a/boq-rates | Status: 200 | Duration: 0.0037s
+[2026-08-05 01:02:13,456] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/1e5c6546-6f58-46c3-af1c-0dcd268f638a/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,459] INFO [app.main:40] - Request: POST /api/v1/estimates/1e5c6546-6f58-46c3-af1c-0dcd268f638a/calculate | Status: 200 | Duration: 0.0018s
+[2026-08-05 01:02:13,459] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/1e5c6546-6f58-46c3-af1c-0dcd268f638a/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,503] INFO [app.main:40] - Request: POST /api/v1/tenders/d170a40a-14cb-433d-b775-068694880032/extract | Status: 202 | Duration: 0.0092s
+[2026-08-05 01:02:13,504] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/d170a40a-14cb-433d-b775-068694880032/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 01:02:13,522] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 01:02:13,531] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:02:13,542] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:02:13,552] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:02:13,562] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:02:13,574] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0026s
+[2026-08-05 01:02:13,575] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,578] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0020s
+[2026-08-05 01:02:13,579] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,582] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0015s
+[2026-08-05 01:02:13,582] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,602] INFO [app.recommendation:116] - Generating AI bid recommendation for tender: 26c0b09b-95df-43d8-93b2-ab9b6694c630
+[2026-08-05 01:02:13,765] INFO [app.main:40] - Request: POST /api/v1/recommendations/d64f6b69-07b6-483e-92c0-43bad6e03c53 | Status: 200 | Duration: 0.0017s
+[2026-08-05 01:02:13,766] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/recommendations/d64f6b69-07b6-483e-92c0-43bad6e03c53 "HTTP/1.1 200 OK"
+[2026-08-05 01:02:13,771] ERROR [app.main:71] - Unhandled error occurred on /api/v1/recommendations/d64f6b69-07b6-483e-92c0-43bad6e03c53: 'coroutine' object has no attribute 'first'
+Traceback (most recent call last):
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\main.py", line 38, in log_requests_and_duration
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2734, in app
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1791, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1780, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 2789, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1800, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 1279, in handle
+    await app(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 158, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 144, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 706, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\venv\Lib\site-packages\fastapi\routing.py", line 352, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI PROJECTS\Tender War Room AI\backend\app\api\v1\endpoints\recommendations.py", line 47, in get_bid_recommendation
+    rec = res.scalars().first()
+          ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'coroutine' object has no attribute 'first'
+[2026-08-05 01:02:14,694] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 01:02:14,711] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 01:02:14,726] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0031s
+[2026-08-05 01:02:14,727] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 01:02:14,739] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0020s
+[2026-08-05 01:02:14,740] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 01:02:14,749] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 01:02:14,753] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 01:02:14,988] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:15,011] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:15,250] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:15,274] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:15,276] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 01:02:15,801] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:15,825] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:16,069] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:16,092] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 01:02:16,327] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:16,354] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:16,591] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:16,614] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:16,864] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:02:17,103] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:17,125] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:17,435] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:02:17,680] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:02:17,921] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:02:18,171] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:02:18,631] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:18,655] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:18,896] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:18,918] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:19,160] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:19,183] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:19,424] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:19,447] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:19,686] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 01:02:19,925] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 01:02:20,218] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:02:20,241] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 01:02:20,480] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 01:02:20,486] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 01:02:20,521] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 01:02:20,550] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0024s
+[2026-08-05 01:02:20,551] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:06:06,922] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 01:06:07,224] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 01:06:07,406] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0290s
+[2026-08-05 01:06:07,407] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,459] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0067s
+[2026-08-05 01:06:07,460] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 01:06:07,474] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0024s
+[2026-08-05 01:06:07,474] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:06:07,506] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0169s
+[2026-08-05 01:06:07,506] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,522] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0062s
+[2026-08-05 01:06:07,523] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:06:07,534] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:06:07,535] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,548] INFO [app.estimation:21] - Batch updating BOQ rates for tender: 8bc453b4-4809-4254-9e8f-97558c54587e
+[2026-08-05 01:06:07,557] INFO [app.estimation:64] - Generating cost sheet summary for 27c022bb-6402-4142-a555-f61798965733 (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 01:06:07,572] INFO [app.main:40] - Request: PUT /api/v1/estimates/18a09f66-372b-46ba-9c82-c23b0ffd687c/boq-rates | Status: 200 | Duration: 0.0037s
+[2026-08-05 01:06:07,573] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/18a09f66-372b-46ba-9c82-c23b0ffd687c/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,576] INFO [app.main:40] - Request: POST /api/v1/estimates/18a09f66-372b-46ba-9c82-c23b0ffd687c/calculate | Status: 200 | Duration: 0.0023s
+[2026-08-05 01:06:07,577] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/18a09f66-372b-46ba-9c82-c23b0ffd687c/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,622] INFO [app.main:40] - Request: POST /api/v1/tenders/59dc6ea3-d0b9-4040-8c5c-63843c07780b/extract | Status: 202 | Duration: 0.0097s
+[2026-08-05 01:06:07,623] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/59dc6ea3-d0b9-4040-8c5c-63843c07780b/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 01:06:07,644] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 01:06:07,654] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:06:07,664] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:06:07,675] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:06:07,688] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:06:07,702] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0022s
+[2026-08-05 01:06:07,702] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,705] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0017s
+[2026-08-05 01:06:07,706] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,709] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0019s
+[2026-08-05 01:06:07,709] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,725] INFO [app.recommendation:118] - Generating AI bid recommendation for tender: aa9155cc-b194-46b5-8954-12356896a101
+[2026-08-05 01:06:07,927] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 01:06:07,943] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 01:06:07,960] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0036s
+[2026-08-05 01:06:07,961] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 01:06:07,974] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0023s
+[2026-08-05 01:06:07,974] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 01:06:07,983] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 01:06:07,986] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 01:06:08,237] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:08,260] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:08,824] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:08,850] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:08,851] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 01:06:09,362] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:09,385] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:09,622] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:09,885] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 01:06:10,133] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:10,163] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:10,428] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:10,455] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:10,695] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:06:12,745] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:12,788] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:13,229] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:06:13,473] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:06:13,821] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:06:14,069] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:06:14,302] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:14,328] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:14,584] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:14,613] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:14,858] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:14,887] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:15,142] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:15,172] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:15,416] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 01:06:15,670] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 01:06:15,973] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:06:16,002] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 01:06:16,250] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 01:06:16,259] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 01:06:16,294] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 01:06:16,621] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0017s
+[2026-08-05 01:06:16,621] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:07:01,413] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 01:07:01,680] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 01:07:01,861] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0291s
+[2026-08-05 01:07:01,862] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 01:07:01,909] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0076s
+[2026-08-05 01:07:01,910] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 01:07:01,920] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0015s
+[2026-08-05 01:07:01,921] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:07:01,949] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0158s
+[2026-08-05 01:07:01,949] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 01:07:01,971] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0091s
+[2026-08-05 01:07:01,971] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:07:01,981] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:07:01,982] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 01:07:01,992] INFO [app.estimation:21] - Batch updating BOQ rates for tender: df8a7ad3-6b87-4dc4-aa2c-bd512c0580e5
+[2026-08-05 01:07:02,000] INFO [app.estimation:64] - Generating cost sheet summary for e40b91a1-992b-49f7-b412-2b3dcb08a041 (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 01:07:02,015] INFO [app.main:40] - Request: PUT /api/v1/estimates/1f640eb9-dc60-4841-8192-21a5945d4eb8/boq-rates | Status: 200 | Duration: 0.0027s
+[2026-08-05 01:07:02,016] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/1f640eb9-dc60-4841-8192-21a5945d4eb8/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,022] INFO [app.main:40] - Request: POST /api/v1/estimates/1f640eb9-dc60-4841-8192-21a5945d4eb8/calculate | Status: 200 | Duration: 0.0029s
+[2026-08-05 01:07:02,023] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/1f640eb9-dc60-4841-8192-21a5945d4eb8/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,068] INFO [app.main:40] - Request: POST /api/v1/tenders/d4d550a8-ed8b-49a1-b7fd-c8f3f809586d/extract | Status: 202 | Duration: 0.0088s
+[2026-08-05 01:07:02,069] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/d4d550a8-ed8b-49a1-b7fd-c8f3f809586d/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 01:07:02,086] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 01:07:02,093] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:07:02,101] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:07:02,110] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:07:02,119] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:07:02,130] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:07:02,130] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,134] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0016s
+[2026-08-05 01:07:02,134] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,137] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0014s
+[2026-08-05 01:07:02,137] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,152] INFO [app.recommendation:118] - Generating AI bid recommendation for tender: 49381b1e-3695-48bd-a988-4e6f2a2a442c
+[2026-08-05 01:07:02,152] WARNING [app.recommendation:51] - GEMINI_API_KEY is not set. Using fallback mock risk assessment.
+[2026-08-05 01:07:02,307] INFO [app.main:40] - Request: POST /api/v1/recommendations/7a2e19d7-5bb6-4b99-823a-3b4c58021308 | Status: 200 | Duration: 0.0018s
+[2026-08-05 01:07:02,308] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/recommendations/7a2e19d7-5bb6-4b99-823a-3b4c58021308 "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,311] INFO [app.main:40] - Request: GET /api/v1/recommendations/7a2e19d7-5bb6-4b99-823a-3b4c58021308 | Status: 200 | Duration: 0.0019s
+[2026-08-05 01:07:02,312] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/recommendations/7a2e19d7-5bb6-4b99-823a-3b4c58021308 "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,344] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 01:07:02,380] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 01:07:02,416] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0059s
+[2026-08-05 01:07:02,417] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 01:07:02,434] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0027s
+[2026-08-05 01:07:02,435] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 01:07:02,445] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 01:07:02,448] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 01:07:02,827] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:02,861] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:03,123] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:03,148] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:03,150] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 01:07:03,393] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:03,422] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:03,662] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:03,691] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 01:07:03,937] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:03,967] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:04,207] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:04,236] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:04,526] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:07:04,777] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:04,802] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:05,783] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:07:06,026] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:07:06,299] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:07:06,541] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:07:06,789] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:06,814] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:07,089] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:07,111] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:08,295] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:08,327] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:08,588] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:08,620] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:08,865] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 01:07:09,104] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 01:07:09,830] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:09,852] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 01:07:10,106] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 01:07:10,111] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 01:07:10,147] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 01:07:10,180] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0026s
+[2026-08-05 01:07:10,181] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:07:53,927] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 01:07:54,199] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 01:07:54,370] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0257s
+[2026-08-05 01:07:54,371] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,417] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0065s
+[2026-08-05 01:07:54,418] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 01:07:54,428] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0021s
+[2026-08-05 01:07:54,429] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:07:54,453] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0156s
+[2026-08-05 01:07:54,454] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,469] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0064s
+[2026-08-05 01:07:54,470] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:07:54,482] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0019s
+[2026-08-05 01:07:54,483] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,497] INFO [app.estimation:21] - Batch updating BOQ rates for tender: 28ed7034-4429-4546-90e1-539c0bedd876
+[2026-08-05 01:07:54,506] INFO [app.estimation:64] - Generating cost sheet summary for a44f6d45-73a1-4f65-9718-d9c57749b609 (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 01:07:54,518] INFO [app.main:40] - Request: PUT /api/v1/estimates/ab823f15-193d-45ad-bda2-057a45d98627/boq-rates | Status: 200 | Duration: 0.0029s
+[2026-08-05 01:07:54,519] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/ab823f15-193d-45ad-bda2-057a45d98627/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,522] INFO [app.main:40] - Request: POST /api/v1/estimates/ab823f15-193d-45ad-bda2-057a45d98627/calculate | Status: 200 | Duration: 0.0020s
+[2026-08-05 01:07:54,522] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/ab823f15-193d-45ad-bda2-057a45d98627/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,567] INFO [app.main:40] - Request: POST /api/v1/tenders/9c041b21-cfd0-4c32-a6de-a676771a44e3/extract | Status: 202 | Duration: 0.0081s
+[2026-08-05 01:07:54,567] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/9c041b21-cfd0-4c32-a6de-a676771a44e3/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 01:07:54,584] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 01:07:54,591] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:07:54,598] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:07:54,607] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:07:54,614] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:07:54,628] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0022s
+[2026-08-05 01:07:54,628] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,631] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0015s
+[2026-08-05 01:07:54,631] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,634] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0019s
+[2026-08-05 01:07:54,635] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,649] INFO [app.recommendation:118] - Generating AI bid recommendation for tender: 3c6e644a-3d7a-4768-942e-8d3c9edf4c53
+[2026-08-05 01:07:54,649] WARNING [app.recommendation:51] - GEMINI_API_KEY is not set. Using fallback mock risk assessment.
+[2026-08-05 01:07:54,664] INFO [app.main:40] - Request: POST /api/v1/recommendations/bc58ab5b-7337-4aab-af68-911a94eb5e0b | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:07:54,664] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/recommendations/bc58ab5b-7337-4aab-af68-911a94eb5e0b "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,669] INFO [app.main:40] - Request: GET /api/v1/recommendations/bc58ab5b-7337-4aab-af68-911a94eb5e0b | Status: 200 | Duration: 0.0026s
+[2026-08-05 01:07:54,670] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/recommendations/bc58ab5b-7337-4aab-af68-911a94eb5e0b "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,705] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 01:07:54,721] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 01:07:54,734] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0032s
+[2026-08-05 01:07:54,735] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 01:07:54,747] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:07:54,747] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 01:07:54,754] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 01:07:54,756] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 01:07:55,002] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:07:55,022] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:02,732] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:02,754] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:02,755] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 01:08:02,993] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:03,016] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:03,254] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:03,277] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 01:08:03,512] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:03,533] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:03,773] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:03,794] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:04,029] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:08:04,262] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:04,284] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:04,582] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:08:04,878] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:08:05,118] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:08:05,356] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:08:05,596] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:05,618] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:05,855] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:05,877] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:06,121] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:06,144] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:06,386] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:06,408] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:06,650] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 01:08:07,120] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 01:08:07,433] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:08:07,455] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 01:08:07,697] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 01:08:07,700] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 01:08:07,740] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 01:08:08,067] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0016s
+[2026-08-05 01:08:08,067] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:13:23,596] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 01:13:23,875] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 01:13:24,067] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0347s
+[2026-08-05 01:13:24,067] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,117] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0060s
+[2026-08-05 01:13:24,118] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 01:13:24,130] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0024s
+[2026-08-05 01:13:24,130] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:13:24,160] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0183s
+[2026-08-05 01:13:24,161] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,174] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0051s
+[2026-08-05 01:13:24,174] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:13:24,186] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0019s
+[2026-08-05 01:13:24,187] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,202] INFO [app.estimation:21] - Batch updating BOQ rates for tender: 35247320-4c81-41e8-9b44-c8ac3728a1da
+[2026-08-05 01:13:24,211] INFO [app.estimation:64] - Generating cost sheet summary for 36f3d268-7246-4338-a496-bacfa2abd055 (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 01:13:24,225] INFO [app.main:40] - Request: PUT /api/v1/estimates/f5bb16eb-6898-44db-bce7-83a3df4aca00/boq-rates | Status: 200 | Duration: 0.0035s
+[2026-08-05 01:13:24,226] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/f5bb16eb-6898-44db-bce7-83a3df4aca00/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,230] INFO [app.main:40] - Request: POST /api/v1/estimates/f5bb16eb-6898-44db-bce7-83a3df4aca00/calculate | Status: 200 | Duration: 0.0023s
+[2026-08-05 01:13:24,231] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/f5bb16eb-6898-44db-bce7-83a3df4aca00/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,269] INFO [app.main:40] - Request: POST /api/v1/tenders/cbc61e87-3d6e-4e4e-b89c-3868468d13a9/extract | Status: 202 | Duration: 0.0038s
+[2026-08-05 01:13:24,269] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/cbc61e87-3d6e-4e4e-b89c-3868468d13a9/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 01:13:24,292] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 01:13:24,299] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:13:24,307] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:13:24,316] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:13:24,324] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:13:24,337] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0027s
+[2026-08-05 01:13:24,337] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,342] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0030s
+[2026-08-05 01:13:24,343] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,347] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0024s
+[2026-08-05 01:13:24,348] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,359] INFO [app.recommendation:118] - Generating AI bid recommendation for tender: 9f6e34fa-d43e-4e26-8d2d-ced7f56ec329
+[2026-08-05 01:13:24,360] WARNING [app.recommendation:51] - GEMINI_API_KEY is not set. Using fallback mock risk assessment.
+[2026-08-05 01:13:24,374] INFO [app.main:40] - Request: POST /api/v1/recommendations/c59a8bb9-fdff-4868-9df6-ce0dd0aa82a5 | Status: 200 | Duration: 0.0018s
+[2026-08-05 01:13:24,375] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/recommendations/c59a8bb9-fdff-4868-9df6-ce0dd0aa82a5 "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,379] INFO [app.main:40] - Request: GET /api/v1/recommendations/c59a8bb9-fdff-4868-9df6-ce0dd0aa82a5 | Status: 200 | Duration: 0.0027s
+[2026-08-05 01:13:24,379] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/recommendations/c59a8bb9-fdff-4868-9df6-ce0dd0aa82a5 "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,415] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 01:13:24,432] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 01:13:24,448] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0036s
+[2026-08-05 01:13:24,448] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 01:13:24,462] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0026s
+[2026-08-05 01:13:24,463] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,471] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 01:13:24,473] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 01:13:24,708] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:24,729] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:24,978] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:25,000] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:25,002] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 01:13:25,239] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:25,260] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:25,492] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:25,514] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 01:13:25,744] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:25,764] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:25,999] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:26,020] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:26,255] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:13:26,488] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:26,510] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:26,809] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:13:27,049] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:13:27,337] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:13:27,569] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:13:27,805] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:27,826] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:28,059] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:28,079] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:28,337] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:28,358] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:28,598] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:28,618] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:28,872] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 01:13:29,142] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 01:13:29,433] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:13:29,454] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 01:13:29,746] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 01:13:29,752] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 01:13:29,788] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 01:13:30,125] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0018s
+[2026-08-05 01:13:30,125] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:13:30,134] INFO [app.simulation:28] - Running what-if simulation for tender 4eb38a73-d5cc-4263-b3d6-b7731f9e852d (materials change: 10.00%, labour change: 5.00%)
+[2026-08-05 01:13:30,148] INFO [app.main:40] - Request: POST /api/v1/simulations/88b746a1-ab18-433f-ae34-4cff7f5136cc/run | Status: 200 | Duration: 0.0042s
+[2026-08-05 01:13:30,149] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/simulations/88b746a1-ab18-433f-ae34-4cff7f5136cc/run?material_multiplier=10.0&labour_multiplier=5.0&proposed_bid_deviation=-6.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:45:41,246] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 01:45:41,525] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 01:45:41,720] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0307s
+[2026-08-05 01:45:41,720] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 01:45:41,767] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0061s
+[2026-08-05 01:45:41,767] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 01:45:41,777] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0021s
+[2026-08-05 01:45:41,778] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:45:41,803] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0169s
+[2026-08-05 01:45:41,803] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 01:45:41,818] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0064s
+[2026-08-05 01:45:41,819] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:45:41,831] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0028s
+[2026-08-05 01:45:41,832] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 01:45:41,846] INFO [app.estimation:21] - Batch updating BOQ rates for tender: 6125083d-7433-4c9a-b232-ac1c4f05ce0f
+[2026-08-05 01:45:41,857] INFO [app.estimation:64] - Generating cost sheet summary for 2a22b487-79aa-416d-aaa1-9cd2cdb926af (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 01:45:41,872] INFO [app.main:40] - Request: PUT /api/v1/estimates/22d8f2bb-a113-4a6f-9e17-762b08498503/boq-rates | Status: 200 | Duration: 0.0037s
+[2026-08-05 01:45:41,872] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/22d8f2bb-a113-4a6f-9e17-762b08498503/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 01:45:41,876] INFO [app.main:40] - Request: POST /api/v1/estimates/22d8f2bb-a113-4a6f-9e17-762b08498503/calculate | Status: 200 | Duration: 0.0026s
+[2026-08-05 01:45:41,877] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/22d8f2bb-a113-4a6f-9e17-762b08498503/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:45:41,917] INFO [app.main:40] - Request: POST /api/v1/tenders/b5d561ae-2c01-4df2-9922-cc8b6e6c2923/extract | Status: 202 | Duration: 0.0039s
+[2026-08-05 01:45:41,917] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/b5d561ae-2c01-4df2-9922-cc8b6e6c2923/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 01:45:41,940] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 01:45:41,948] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:45:41,959] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:45:41,970] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:45:41,980] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:45:41,999] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0045s
+[2026-08-05 01:45:41,999] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:45:42,002] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0019s
+[2026-08-05 01:45:42,003] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:45:42,006] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0018s
+[2026-08-05 01:45:42,007] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 01:45:42,019] INFO [app.recommendation:118] - Generating AI bid recommendation for tender: f54745f9-6216-4a5a-aa7f-d9047dce5aa2
+[2026-08-05 01:45:42,020] WARNING [app.recommendation:51] - GEMINI_API_KEY is not set. Using fallback mock risk assessment.
+[2026-08-05 01:45:42,035] INFO [app.main:40] - Request: POST /api/v1/recommendations/29f67cb5-4f61-4f98-8b29-3a29b4a0f897 | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:45:42,036] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/recommendations/29f67cb5-4f61-4f98-8b29-3a29b4a0f897 "HTTP/1.1 200 OK"
+[2026-08-05 01:45:42,039] INFO [app.main:40] - Request: GET /api/v1/recommendations/29f67cb5-4f61-4f98-8b29-3a29b4a0f897 | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:45:42,039] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/recommendations/29f67cb5-4f61-4f98-8b29-3a29b4a0f897 "HTTP/1.1 200 OK"
+[2026-08-05 01:45:42,048] INFO [app.report:20] - Compiling printable bid report for tender: 2abde20c-b509-474c-8459-d954e63ea4f6
+[2026-08-05 01:45:42,216] INFO [app.main:40] - Request: GET /api/v1/reports/df3c6c63-3f10-4a41-a3c8-9f0ac15ca94b/print | Status: 200 | Duration: 0.0030s
+[2026-08-05 01:45:42,217] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/reports/df3c6c63-3f10-4a41-a3c8-9f0ac15ca94b/print "HTTP/1.1 200 OK"
+[2026-08-05 01:45:42,256] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 01:45:42,272] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 01:45:42,286] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0030s
+[2026-08-05 01:45:42,286] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 01:45:42,301] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0030s
+[2026-08-05 01:45:42,302] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 01:45:42,310] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 01:45:42,313] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 01:45:42,549] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:42,570] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:46,531] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:46,554] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:46,555] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 01:45:46,794] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:46,815] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:47,052] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:47,073] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 01:45:47,314] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:47,335] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:47,569] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:47,591] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:47,829] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:45:48,064] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:48,087] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:48,642] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:45:48,885] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:45:49,121] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:45:49,359] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:45:49,597] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:49,619] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:50,130] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:50,155] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:50,760] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:50,820] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:51,057] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:51,350] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:52,161] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 01:45:52,399] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 01:45:52,691] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:45:52,713] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 01:45:52,946] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 01:45:52,953] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 01:45:52,992] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 01:45:53,020] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0029s
+[2026-08-05 01:45:53,022] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:45:53,034] INFO [app.simulation:28] - Running what-if simulation for tender decb90c6-8bb8-4bf0-a797-dfa9ab5e3d9e (materials change: 10.00%, labour change: 5.00%)
+[2026-08-05 01:45:53,049] INFO [app.main:40] - Request: POST /api/v1/simulations/1441b967-25bc-482e-84f9-3375e49b616b/run | Status: 200 | Duration: 0.0034s
+[2026-08-05 01:45:53,050] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/simulations/1441b967-25bc-482e-84f9-3375e49b616b/run?material_multiplier=10.0&labour_multiplier=5.0&proposed_bid_deviation=-6.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,176] INFO [root:45] - Logging configured successfully. File path: C:\AI PROJECTS\Tender War Room AI\backend\logs\app.log
+[2026-08-05 01:46:50,455] WARNING [app.extraction:26] - pytesseract is not installed. OCR extraction will be disabled.
+[2026-08-05 01:46:50,630] INFO [app.main:40] - Request: GET /health | Status: 200 | Duration: 0.0362s
+[2026-08-05 01:46:50,631] INFO [httpx:1740] - HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,677] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 201 | Duration: 0.0068s
+[2026-08-05 01:46:50,678] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 201 Created"
+[2026-08-05 01:46:50,689] INFO [app.main:40] - Request: POST /api/v1/auth/setup-admin | Status: 400 | Duration: 0.0021s
+[2026-08-05 01:46:50,690] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/setup-admin "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:46:50,717] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 200 | Duration: 0.0183s
+[2026-08-05 01:46:50,718] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,733] INFO [app.main:40] - Request: POST /api/v1/auth/login | Status: 400 | Duration: 0.0059s
+[2026-08-05 01:46:50,733] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/auth/login "HTTP/1.1 400 Bad Request"
+[2026-08-05 01:46:50,746] INFO [app.main:40] - Request: GET /api/v1/auth/me | Status: 200 | Duration: 0.0020s
+[2026-08-05 01:46:50,747] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/auth/me "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,760] INFO [app.estimation:21] - Batch updating BOQ rates for tender: 439ae0f1-e7cc-423f-a9b0-221bbc755d46
+[2026-08-05 01:46:50,770] INFO [app.estimation:64] - Generating cost sheet summary for 4e98ae04-5444-427e-b64c-b92799b2e3b4 (overheads: 10.00%, tax: 5.00%)
+[2026-08-05 01:46:50,784] INFO [app.main:40] - Request: PUT /api/v1/estimates/45dd0bb0-7e08-4cda-9d3d-685040270c0b/boq-rates | Status: 200 | Duration: 0.0037s
+[2026-08-05 01:46:50,785] INFO [httpx:1740] - HTTP Request: PUT http://testserver/api/v1/estimates/45dd0bb0-7e08-4cda-9d3d-685040270c0b/boq-rates "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,788] INFO [app.main:40] - Request: POST /api/v1/estimates/45dd0bb0-7e08-4cda-9d3d-685040270c0b/calculate | Status: 200 | Duration: 0.0022s
+[2026-08-05 01:46:50,789] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/estimates/45dd0bb0-7e08-4cda-9d3d-685040270c0b/calculate?overhead_percent=10.0&tax_percent=5.0 "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,825] INFO [app.main:40] - Request: POST /api/v1/tenders/b611d78f-12c5-440e-ae75-ad64c7c35379/extract | Status: 202 | Duration: 0.0043s
+[2026-08-05 01:46:50,826] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/b611d78f-12c5-440e-ae75-ad64c7c35379/extract "HTTP/1.1 202 Accepted"
+[2026-08-05 01:46:50,843] INFO [app.market:20] - Fetching price trends for Cement in Telangana
+[2026-08-05 01:46:50,855] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:46:50,863] INFO [app.market:50] - Generating next-month forecast for Cement in Telangana
+[2026-08-05 01:46:50,872] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:46:50,880] INFO [app.market:106] - Evaluating volatility alerts for region: Telangana
+[2026-08-05 01:46:50,894] INFO [app.main:40] - Request: GET /api/v1/market-prices/trends | Status: 200 | Duration: 0.0039s
+[2026-08-05 01:46:50,895] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/trends?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,898] INFO [app.main:40] - Request: GET /api/v1/market-prices/forecasts | Status: 200 | Duration: 0.0016s
+[2026-08-05 01:46:50,898] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/forecasts?material_type=Cement "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,901] INFO [app.main:40] - Request: GET /api/v1/market-prices/alerts | Status: 200 | Duration: 0.0018s
+[2026-08-05 01:46:50,902] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/market-prices/alerts "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,913] INFO [app.recommendation:118] - Generating AI bid recommendation for tender: 2d4c9c8b-7c93-4c83-827b-04d778a07d1c
+[2026-08-05 01:46:50,914] WARNING [app.recommendation:51] - GEMINI_API_KEY is not set. Using fallback mock risk assessment.
+[2026-08-05 01:46:50,926] INFO [app.main:40] - Request: POST /api/v1/recommendations/5ae7037b-b1a1-43eb-a70e-22e36f06df11 | Status: 200 | Duration: 0.0018s
+[2026-08-05 01:46:50,926] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/recommendations/5ae7037b-b1a1-43eb-a70e-22e36f06df11 "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,930] INFO [app.main:40] - Request: GET /api/v1/recommendations/5ae7037b-b1a1-43eb-a70e-22e36f06df11 | Status: 200 | Duration: 0.0025s
+[2026-08-05 01:46:50,930] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/recommendations/5ae7037b-b1a1-43eb-a70e-22e36f06df11 "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,939] INFO [app.report:22] - Compiling printable bid report for tender: 3c60263d-144f-4eff-826f-0c4b29e6b3f3
+[2026-08-05 01:46:50,951] INFO [app.main:40] - Request: GET /api/v1/reports/694fb053-2760-47f1-b25c-bfed76f3b829/print | Status: 200 | Duration: 0.0024s
+[2026-08-05 01:46:50,952] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/reports/694fb053-2760-47f1-b25c-bfed76f3b829/print "HTTP/1.1 200 OK"
+[2026-08-05 01:46:50,983] INFO [app.scraper:57] - Duplicate file detected via hash: notice.pdf. Skipping save.
+[2026-08-05 01:46:50,999] INFO [app.scraper:68] - Update detected for notice.pdf. Creating version 2.
+[2026-08-05 01:46:51,015] INFO [app.main:40] - Request: POST /api/v1/tenders/scrape | Status: 202 | Duration: 0.0036s
+[2026-08-05 01:46:51,015] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/scrape?query=SCCL "HTTP/1.1 202 Accepted"
+[2026-08-05 01:46:51,028] INFO [app.main:40] - Request: GET /api/v1/tenders/ | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:46:51,028] INFO [httpx:1740] - HTTP Request: GET http://testserver/api/v1/tenders/ "HTTP/1.1 200 OK"
+[2026-08-05 01:46:51,036] INFO [app.similarity:17] - Initializing SentenceTransformer model: all-MiniLM-L6-v2
+[2026-08-05 01:46:51,038] INFO [sentence_transformers.base.model:190] - No device provided, using cpu
+[2026-08-05 01:46:51,276] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:51,297] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:51,535] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:51,557] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:51,559] INFO [sentence_transformers.base.model:1001] - Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+[2026-08-05 01:46:51,794] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:51,815] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config_sentence_transformers.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:52,069] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:52,089] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/README.md "HTTP/1.1 200 OK"
+[2026-08-05 01:46:52,320] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:52,343] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/modules.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:52,574] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:52,596] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/sentence_bert_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:52,830] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:46:53,065] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:53,086] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:53,393] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:46:53,976] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:46:54,210] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:46:54,450] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+[2026-08-05 01:46:54,689] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:54,711] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:54,942] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:54,964] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:55,203] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:55,227] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:55,460] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:55,481] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/tokenizer_config.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:55,719] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[2026-08-05 01:46:55,956] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[2026-08-05 01:46:56,251] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+[2026-08-05 01:46:56,272] INFO [httpx:1025] - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/1110a243fdf4706b3f48f1d95db1a4f5529b4d41/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+[2026-08-05 01:46:56,511] INFO [httpx:1025] - HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+[2026-08-05 01:46:56,516] INFO [app.similarity:28] - Rebuilding similarity index from database records...
+[2026-08-05 01:46:56,551] INFO [app.similarity:82] - FAISS index rebuilt successfully with 2 documents.
+[2026-08-05 01:46:56,849] INFO [app.main:40] - Request: POST /api/v1/tenders/search/similar | Status: 200 | Duration: 0.0017s
+[2026-08-05 01:46:56,849] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/tenders/search/similar?query=pipeline%20roads&limit=5 "HTTP/1.1 200 OK"
+[2026-08-05 01:46:56,857] INFO [app.simulation:28] - Running what-if simulation for tender f36d27d0-fac1-411a-a572-149b27634110 (materials change: 10.00%, labour change: 5.00%)
+[2026-08-05 01:46:56,867] INFO [app.main:40] - Request: POST /api/v1/simulations/7ec1d3f0-b784-4d42-949b-f46e3ccfeb1c/run | Status: 200 | Duration: 0.0021s
+[2026-08-05 01:46:56,868] INFO [httpx:1740] - HTTP Request: POST http://testserver/api/v1/simulations/7ec1d3f0-b784-4d42-949b-f46e3ccfeb1c/run?material_multiplier=10.0&labour_multiplier=5.0&proposed_bid_deviation=-6.0 "HTTP/1.1 200 OK"
