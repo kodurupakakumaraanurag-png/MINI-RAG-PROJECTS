@@ -899,25 +899,25 @@ select:focus {
 }
 
 /* ==========================================
-   MODERN HIGH-CONTRAST DARK SPACE GLASSMORPHISM
+   MODERN HIGH-END OBSIDIAN, SAPPHIRE & GOLD LAUNCH THEME
    ========================================== */
 
 :root {
-    --bg-dark: #090d16;             /* Sleek Space Dark */
-    --sidebar-bg: #0f1420;          /* Deep Tech Blue-Grey */
-    --workspace-bg: #0b0f19;        /* Dark Space Workspace */
-    --card-bg: rgba(22, 28, 45, 0.6); /* Sleek Glass Card */
+    --bg-dark: #060814;             /* Executive Deep Obsidian */
+    --sidebar-bg: #0b1021;          /* Deep Slate Sapphire */
+    --workspace-bg: #050811;        /* Dark Space Workspace */
+    --card-bg: rgba(18, 25, 47, 0.65); /* Translucent Sapphire/Glass Card */
     
-    --accent-blue: #00f2fe;         /* Bright Electric Cyan */
-    --accent-violet: #9b51e0;       /* Neon Violet */
-    --accent-gradient: linear-gradient(135deg, #0072ff 0%, #00f2fe 100%);
-    --gradient-purple: linear-gradient(135deg, #111827 0%, #1e1b4b 100%);
+    --accent-blue: #cca43b;         /* Muted Champagne Gold Accent */
+    --accent-violet: #4f46e5;       /* Royal Sapphire Accent */
+    --accent-gradient: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%); /* Sapphire Gradient */
+    --gradient-purple: linear-gradient(135deg, #0b1021 0%, #1e1b4b 100%);
     
-    --text-primary: #f3f4f6;        /* Bright Off-White */
-    --text-secondary: #9ca3af;      /* Muted Silver */
-    --text-muted: #4b5563;          /* Dark Cool Muted */
-    --border-color: rgba(255, 255, 255, 0.08); /* Translucent White */
-    --border-highlight: #00f2fe;   /* Cyan highlight */
+    --text-primary: #f1f5f9;        /* Crisp Off-White */
+    --text-secondary: #94a3b8;      /* Slate Silver */
+    --text-muted: #475569;          /* Slate Grey */
+    --border-color: rgba(204, 164, 59, 0.12); /* Translucent Gold Border */
+    --border-highlight: #cca43b;   /* Champagne Gold Highlight */
     
     --success: #10b981;             /* Vibrant Emerald */
     --warning: #f59e0b;             /* Vibrant Amber */
@@ -948,13 +948,13 @@ h1, h2, h3, h4, h5, h6,
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
-/* Sidebar Inputs and Selects (Modern Dark Slate) */
+/* Sidebar Inputs and Selects (Modern Dark Slate Blue) */
 input[type="text"],
 textarea,
 select {
-    background-color: #121824 !important;
-    color: #f3f4f6 !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: #0f172a !important;
+    color: #f1f5f9 !important;
+    border: 1px solid rgba(204, 164, 59, 0.2) !important;
     border-radius: 8px !important;
     font-family: 'Inter', sans-serif;
 }
@@ -963,7 +963,7 @@ input[type="text"]:focus,
 textarea:focus,
 select:focus {
     border-color: var(--accent-blue) !important;
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.25) !important;
+    box-shadow: 0 0 10px rgba(204, 164, 59, 0.25) !important;
 }
 
 /* Custom panels and elements - Transparent glass style */
@@ -974,15 +974,15 @@ select:focus {
     background-color: var(--card-bg) !important;
     border: 1px solid var(--border-color) !important;
     border-radius: 12px !important;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35) !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
 }
 
 /* Predefined Suggestion Chips */
 .suggest-btn {
-    background: rgba(255, 255, 255, 0.04) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(204, 164, 59, 0.04) !important;
+    border: 1px solid rgba(204, 164, 59, 0.15) !important;
     color: var(--text-secondary) !important;
     border-radius: 20px !important;
     font-family: 'Inter', sans-serif;
@@ -991,22 +991,22 @@ select:focus {
 }
 
 .suggest-btn:hover {
-    background: rgba(0, 242, 254, 0.08) !important;
-    border-color: rgba(0, 242, 254, 0.3) !important;
+    background: rgba(204, 164, 59, 0.15) !important;
+    border-color: var(--accent-blue) !important;
     color: #ffffff !important;
     transform: translateY(-1px);
 }
 
-/* Sliders Overrides (Vibrant Cyber styling) */
+/* Sliders Overrides (Refined Gold styling) */
 .range-slider {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
     height: 6px !important;
     border-radius: 3px !important;
 }
 
 .range-slider::-webkit-slider-thumb {
     background: var(--accent-blue) !important;
-    box-shadow: 0 0 8px rgba(0, 242, 254, 0.6) !important;
+    box-shadow: 0 0 8px rgba(204, 164, 59, 0.6) !important;
     border: none !important;
     width: 14px !important;
     height: 14px !important;
@@ -1015,43 +1015,43 @@ select:focus {
 /* Grid Cells (Document grid) */
 .grid-cell {
     border-radius: 6px !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(204, 164, 59, 0.1) !important;
     color: var(--text-secondary) !important;
 }
 
 .grid-cell.retrieved {
-    background: var(--accent-gradient) !important;
+    background: var(--accent-blue) !important;
     color: #000000 !important;
     border-color: transparent !important;
     font-weight: 700 !important;
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.3) !important;
+    box-shadow: 0 0 10px rgba(204, 164, 59, 0.4) !important;
 }
 
 /* Drag & Drop Upload Zone */
 .upload-zone {
-    border: 2px dashed rgba(255, 255, 255, 0.15) !important;
-    background: rgba(255, 255, 255, 0.02) !important;
+    border: 2px dashed rgba(204, 164, 59, 0.3) !important;
+    background: rgba(204, 164, 59, 0.02) !important;
     border-radius: 8px !important;
     transition: all 0.2s ease;
 }
 
 .upload-zone:hover,
 .upload-zone.dragover {
-    background: rgba(0, 242, 254, 0.04) !important;
+    background: rgba(204, 164, 59, 0.06) !important;
     border-color: var(--accent-blue) !important;
 }
 
 /* Send/Submit Button */
 .send-btn {
     border-radius: 8px !important;
-    background: var(--accent-gradient) !important;
+    background: var(--accent-blue) !important;
     color: #000000 !important;
     font-weight: 700 !important;
 }
 
 .send-btn:hover {
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.5) !important;
+    box-shadow: 0 0 15px rgba(204, 164, 59, 0.4) !important;
 }
 
 /* Scrollbar override */
@@ -1060,12 +1060,12 @@ select:focus {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(204, 164, 59, 0.2) !important;
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(204, 164, 59, 0.4) !important;
 }
 
 /* RAG Chat Feed Layout & Message Bubbles styling */
@@ -1134,19 +1134,20 @@ select:focus {
 /* User Message specific layout */
 .chat-message.user .message-content {
     background: var(--accent-gradient);
-    color: #000000;
+    color: #ffffff;
     font-weight: 500;
     border-bottom-right-radius: 4px;
-    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.2);
+    box-shadow: 0 4px 15px rgba(29, 78, 216, 0.25);
 }
 
-/* Bot Message specific layout */
+/* Bot Message specific layout with Stripe-Style Left Accent Gold Border */
 .chat-message.bot .message-content {
-    background: rgba(30, 41, 59, 0.6);
+    background: rgba(18, 25, 47, 0.7);
     border: 1px solid var(--border-color);
-    color: #f3f4f6;
+    border-left: 4px solid var(--accent-blue) !important;
+    color: #f1f5f9;
     border-bottom-left-radius: 4px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(8px);
 }
 
@@ -1154,6 +1155,7 @@ select:focus {
     border-color: rgba(239, 68, 68, 0.4);
     background: rgba(239, 68, 68, 0.08);
     color: #fca5a5;
+    border-left-color: #ef4444 !important;
 }
 
 /* Bot Message Header Simple Badge Actions */
@@ -1175,7 +1177,7 @@ select:focus {
 }
 
 .message-badge.info {
-    color: #60a5fa;
+    color: #cca43b;
 }
 
 .message-badge.danger {
@@ -1246,7 +1248,7 @@ select:focus {
 .chat-message.bot .markdown-body {
     font-family: 'Inter', -apple-system, sans-serif !important;
     font-size: 14.5px !important;
-    color: #f3f4f6 !important;
+    color: #f1f5f9 !important;
 }
 
 .markdown-body ul, 
@@ -1272,19 +1274,19 @@ select:focus {
 }
 
 .query-input-wrapper {
-    background: rgba(17, 24, 39, 0.8) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+    background: rgba(11, 16, 33, 0.8) !important;
+    border: 1px solid rgba(204, 164, 59, 0.15) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35) !important;
     border-radius: 12px !important;
 }
 
 .query-input-wrapper:focus-within {
-    border-color: rgba(0, 242, 254, 0.4) !important;
-    box-shadow: 0 0 15px rgba(0, 242, 254, 0.15) !important;
+    border-color: rgba(204, 164, 59, 0.4) !important;
+    box-shadow: 0 0 15px rgba(204, 164, 59, 0.25) !important;
 }
 
 #query-input {
-    color: #f3f4f6 !important;
+    color: #f1f5f9 !important;
 }
 
 
